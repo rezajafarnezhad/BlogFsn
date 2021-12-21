@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Fsn.Application
 {
+    //Article Category
     public class ArticleCategoryApplication : IArticleCategoryApplication
     {
         private readonly IArticleCategoryRepo _articleCategoryRepo;

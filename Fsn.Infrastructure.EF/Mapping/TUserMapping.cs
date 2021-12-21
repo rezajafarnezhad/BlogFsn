@@ -13,7 +13,7 @@ namespace Fsn.Infrastructure.EF.Mapping
     {
         public void Configure(EntityTypeBuilder<TUser> builder)
         {
-            
+            //mapping
             builder.HasKey(c => c.Id);
             builder.Property(c => c.FullName).IsRequired().HasMaxLength(50);
 
