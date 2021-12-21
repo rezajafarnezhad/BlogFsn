@@ -1,0 +1,20 @@
+﻿@font-face {
+    font-family: "iransans";
+    src: url("../assets/fonts/iransans.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "iransans_fa";
+    src: url("../assets/fonts/iransans-fa.ttf") format("truetype");
+}
+
+*:not(span,i)  {
+    font-family: "iransans_fa" !important;
+}
+
+.font {
+    font-family: "iransans_fa" !important;
+}
+a, p, li, ul, h1, h2, h3, h4, h5, h6, pre, strong {
+    font-family: "iransans_fa"!important;
+}

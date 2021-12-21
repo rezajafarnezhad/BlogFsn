@@ -1,0 +1,49 @@
+﻿
+@model Fsn.Application.Contracts.Article.CategoryForEdit
+
+@{
+    Layout = null;
+}
+
+
+<div class="modal fade" id="EditCat" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">ویرایش (@Model.Title)</h3>
+            </div>
+            <div class="modal-body">
+                <div class="account_form">
+                    <form id="frmCategoryEdit" method="post">
+                        <div class="form-group">
+                            <div class="row">
+                                <input asp-for="Id" type="hidden" class="form-control border-secondary">
+                                <input asp-for="IsActive" type="hidden" class="form-control border-secondary">
+                                <div class="col-md-12">
+                                    <label>عنوان</label>
+                                    <input asp-for="Title" class="form-control border-secondary">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal" onclick="Close()">بستن</button>
+                <button type="button" onclick="SendForm('/Admin/ArticleCategory/Edit', 'frmCategoryEdit')" class="btn btn-warning">ویرایش</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function Close() {
+        $(document).ready(function() {
+            $('#EditCat').remove();
+            $('.modal-backdrop').remove();
+        });
+    }
+
+</script>

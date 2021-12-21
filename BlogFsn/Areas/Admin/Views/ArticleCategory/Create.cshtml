@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="card card-dark">
+    <div class="card-header">
+        <h3 class="card-title">افزودن دسته بندی</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <form id="frmCreateCategory">
+            <!-- text input -->
+            <div class="form-group">
+                <label>عنوان</label>
+                <input type="text" id="title" name="title" class="form-control" placeholder="وارد کردن دسته بندی ...">
+            </div>
+        </form>
+        <button type="button" onclick="send()" class="btn btn-success">ثبت دسته</button>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+<script>
+
+    function send() {
+
+        SendData('/Admin/ArticleCategory/Create', { Title : $("#title").val()});
+
+    }
+
+
+</script>

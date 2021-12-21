@@ -1,0 +1,304 @@
+﻿
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewData["Title"] - FSn</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/Site/assets/imgs/favicon.png">
+    <link rel="stylesheet" href="/Site/assets/css/style.css">
+    <link rel="stylesheet" href="/Site/assets/css/widgets.css">
+    <link rel="stylesheet" href="/Site/assets/css/color.css">
+    <link rel="stylesheet" href="/Site/assets/css/responsive.css">
+    <link rel="stylesheet" href="/Site/css/custom.css" />
+</head>
+
+<body>
+
+    <div class="scroll-progress primary-bg"></div>
+    <!-- Preloader Start -->
+    <div class="main-wrap main">
+        <!-- Main Wrap Start -->
+        <header class="main-header header-style-1 mb-40">
+            <div class="top-bar pt-10 pb-10 background-white d-none d-md-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <div class="language d-inline-block font-small">
+                                <div id="langMenuDropdow" class="dropdown-menu dropdown-menu-left text-right shadow" aria-labelledby="langMenu">
+                                    <a class="dropdown-item" href="#">فارسی</a>
+                                    <a class="dropdown-item" href="#">English</a>
+                                </div>
+                                <a class="dropdown-toggle" href="#" role="button" id="langMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="ti-world mr-5"></i>
+                                    <span>EN</span>
+                                </a>
+                            </div>
+                            <div id="datetime" class="d-inline-block">
+                                <ul>
+                                    <li>
+                                        <img src="/Site/assets/imgs/logo-2.png" width="130" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-6 text-right">
+                            <ul class="header-social-network d-inline-block list-inline">
+                                <li class="list-inline-item"><a class="social-icon facebook-icon text-xs-center" target="_blank" href="#"><i class="ti-facebook"></i></a></li>
+                                <li class="list-inline-item"><a class="social-icon twitter-icon text-xs-center" target="_blank" href="#"><i class="ti-twitter-alt"></i></a></li>
+                                <li class="list-inline-item"><a class="social-icon instagram-icon text-xs-center" target="_blank" href="#"><i class="ti-instagram"></i></a></li>
+                            </ul>
+                            <div class="vline-space d-inline-block"></div>
+                            <div class="user-account d-inline-block font-small">
+                                <a class="dropdown-toggle font-weight-bold" href="#" role="button" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="ti-user"></i>
+                                    <span>حساب کاربری</span>
+                                </a>
+                                <div id="userMenuDropdow" class="dropdown-menu dropdown-menu-right text-right shadow" aria-labelledby="userMenu">
+                                    <a class="dropdown-item" href="#"><i class="ti-pencil-alt"></i>ویرایش اطلاعات</a>
+                                    <a class="dropdown-item" href="#"><i class="ti-settings"></i>ثبت مقاله جدید</a>
+                                    <a class="dropdown-item" href="#"><i class="ti-stats-up"></i>لیست مقاله های من</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="login.html"><i class="ti-share"></i>خروج</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-bottom header-sticky background-white text-center">
+                <div class="mobile_menu d-lg-none d-block">
+
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Main-menu -->
+                            <div class="main-nav text-center d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation" class="main-menu text-right " dir="rtl">
+                                        <li>
+                                            <a href="index.html" class="font-weight-bold">خانه</a>
+                                        </li>
+                                        <li class="menu-item-has-children" dir="rtl">
+                                            <a href="index.html" class="font-weight-bold">مقاله ها</a>
+                                            <ul class="sub-menu">
+                                                <li><a href="blogDetail.html" class="text-right">بهترین نسخه اندروید کدام است ؟</a></li>
+                                                <li><a href="blogDetail.html" class="text-right">چه لپ تاپی خوب است ؟</a></li>
+                                                <li><a href="blogDetail.html" class="text-right">نحوه محاسبه قیمت سکه</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="register.html" class="font-weight-bold">ثبت نام</a>
+                                        </li>
+                                        <li>
+                                            <a href="login.html" class="font-weight-bold">ورود</a>
+
+                                        </li>
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        
+
+        @RenderBody()
+
+
+        <footer>
+            <!-- Footer Start-->
+            <div class="footer-area fix pt-50 background11 text-right" dir="rtl">
+                <div class="container">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-lg-4 col-md-6 mb-lg-0 mb-30">
+                            <div class="sidebar-widget widget-latest-posts mb-30">
+                                <div class="widget-header position-relative mb-30">
+                                    <h5 class="widget-title mt-5 mb-30 color-white">متفرقه</h5>
+                                    <div class="letter-background">W</div>
+                                </div>
+                                <div class="post-block-list post-module-1 post-module-5">
+                                    <ul class="list-post">
+                                        <li class="mb-30">
+                                            <div class="d-flex">
+                                                <div class="post-thumb d-flex ml-15 border-radius-5 img-hover-scale">
+                                                    <a class="color-white" href="single.html">
+                                                        <img src="assets/imgs/thumbnail-1.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="post-content media-body">
+                                                    <h6 class="post-title mb-10 text-limit-2-row"><a class="color-white" href="single.html">داستان مرد فراری</a></h6>
+                                                    <div class="entry-meta meta-1 font-x-small color-grey">
+                                                        <span class="post-on">25 April</span>
+                                                        <span class="hit-count has-dot">26k Views</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="mb-30">
+                                            <div class="d-flex">
+                                                <div class="post-thumb d-flex ml-15 border-radius-5 img-hover-scale">
+                                                    <a class="color-white" href="single.html">
+                                                        <img src="assets/imgs/thumbnail-2.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="post-content media-body">
+                                                    <h6 class="post-title mb-10 text-limit-2-row"><a class="color-white" href="single.html">خبرساز ترین جوان ایرانی</a></h6>
+                                                    <div class="entry-meta meta-1 font-x-small color-grey mt-10">
+                                                        <span class="post-on">25 April</span>
+                                                        <span class="hit-count has-dot">37k Views</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="mb-30">
+                                            <div class="d-flex">
+                                                <div class="post-thumb d-flex ml-15 border-radius-5 img-hover-scale">
+                                                    <a class="color-white" href="single.html">
+                                                        <img src="assets/imgs/thumbnail-3.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="post-content media-body">
+                                                    <h6 class="post-title mb-10 text-limit-2-row"><a class="color-white" href="single.html">روحانی به امریکا می رود</a></h6>
+                                                    <div class="entry-meta meta-1 font-x-small color-grey mt-10">
+                                                        <span class="post-on">25 April</span>
+                                                        <span class="hit-count has-dot">54k Views</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-lg-0 mb-30">
+                            <div class="sidebar-widget widget-latest-posts mb-30">
+                                <div class="widget-header position-relative mb-30">
+                                    <h5 class="widget-title mt-5 mb-30 color-white">بیشترین بازدید</h5>
+                                    <div class="letter-background">M</div>
+                                </div>
+                                <div class="post-block-list post-module-1 post-module-5">
+                                    <ul class="list-post">
+                                        <li class="mb-30">
+                                            <div class="d-flex">
+                                                <div class="post-thumb d-flex ml-15 border-radius-5 img-hover-scale">
+                                                    <a class="color-white" href="single.html">
+                                                        <img src="assets/imgs/thumbnail-13.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="post-content media-body">
+                                                    <h6 class="post-title mb-10 text-limit-2-row"><a class="color-white" href="single.html">لیست بهترین داروهای گیاهی</a></h6>
+                                                    <div class="entry-meta meta-1 font-x-small color-grey">
+                                                        <span class="post-on">25 April</span>
+                                                        <span class="hit-count has-dot">26k Views</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="mb-30">
+                                            <div class="d-flex">
+                                                <div class="post-thumb d-flex ml-15 border-radius-5 img-hover-scale">
+                                                    <a class="color-white" href="single.html">
+                                                        <img src="assets/imgs/thumbnail-5.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="post-content media-body">
+                                                    <h6 class="post-title mb-10 text-limit-2-row"><a class="color-white" href="single.html">وزارت بهداشت در مورد بیماری کرونا گفت</a></h6>
+                                                    <div class="entry-meta meta-1 font-x-small color-grey mt-10">
+                                                        <span class="post-on">25 April</span>
+                                                        <span class="hit-count has-dot">37k Views</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="mb-30">
+                                            <div class="d-flex">
+                                                <div class="post-thumb d-flex ml-15 border-radius-5 img-hover-scale">
+                                                    <a class="color-white" href="single.html">
+                                                        <img src="assets/imgs/thumbnail-11.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="post-content media-body">
+                                                    <h6 class="post-title mb-10 text-limit-2-row"><a class="color-white" href="single.html">عامل اصلی بیماری کرونا</a></h6>
+                                                    <div class="entry-meta meta-1 font-x-small color-grey mt-10">
+                                                        <span class="post-on">25 April</span>
+                                                        <span class="hit-count has-dot">54k Views</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="sidebar-widget widget_categories mb-30">
+                                <div class="widget-header position-relative mb-30">
+                                    <h5 class="widget-title mt-5 mb-30 color-white">لینک های مفید</h5>
+                                </div>
+                                <div class="post-block-list post-module-1 post-module-5">
+                                    <ul class="float-right ml-30 font-medium">
+                                        <li class="cat-item cat-item-2"><a href="#">ثبت نام</a></li>
+                                        <li class="cat-item cat-item-3"><a href="#">ورود</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- footer-bottom aera -->
+            <div class="footer-bottom-area background11">
+                <div class="container">
+                    <div class="footer-border pt-30 pb-30">
+                        <div class="row d-flex align-items-center justify-content-between">
+                            <div class="col-lg-6">
+                                <div class="footer-menu float-lg-left mt-lg-0 mt-3">
+                                    <ul class="font-medium">
+                                        <li><a href="#">شرایط استفاده</a></li>
+                                        <li><a href="#">سوالات متداول</a></li>
+                                        <li><a href="#">درباره ما</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 text-right">
+                                <div class="footer-copy-right">
+                                    <p class="font-medium">
+                                        <a href="#" target="_blank">طراحی سایت</a>
+                                        توسط
+                                        <a href="#" target="_blank">توسعه پردازان</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End-->
+        </footer>
+    </div>
+    <!-- Main Wrap End-->
+    <div class="dark-mark"></div>
+    <!-- Vendor JS-->
+
+    <script src="/Site/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="/Site/assets/js/vendor/popper.min.js"></script>
+    <script src="/Site/assets/js/vendor/bootstrap.min.js"></script>
+
+    @RenderSection("JS", false)
+
+</body>
+
+</html>
+

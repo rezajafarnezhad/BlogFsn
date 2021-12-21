@@ -1,0 +1,108 @@
+﻿
+@model Fsn.Application.Contracts.Article.ListArticleCategory
+
+@{
+
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "لیست دسته بندی ها";
+
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">لیست دسته بندی ها</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/Admin/Blog/index">خانه</a></li>
+                    <li class="breadcrumb-item active">لیست دسته بندی ها</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2 text-bold">مشاهده دسته بندی ها</h5>
+                        <div id="example2_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <form id="mform" action="/Admin/ArticleCategory/Search" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#Content">
+                                        <div id="Content">
+                                            <partial name="_Category" model="@Model" />
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <partial name="Create" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section JS
+{
+
+
+    <script>
+        function RefreshTable() {
+            $("#myTable").load("/Admin/ArticleCategory/Index #myTable");
+            Close();
+        }
+    </script>
+
+    <script>
+        function sendPage(pagenum) {
+            $("#pageid").val(pagenum);
+            $("#mform").submit();
+        }
+    </script>
+
+
+    <script>
+
+        function Edit(_Id) {
+            LoadComponenet('/Admin/ArticleCategory/Edit',
+                { Id: _Id },
+                function (res) {
+                    $('body').append(res);
+                    $('#EditCat').modal();
+                });
+        }
+
+    </script>
+
+    <script>
+
+        function Delete(_id) {
+            RemoveData('/Admin/ArticleCategory/Delete', { Id: _id });
+        }
+
+    </script>
+    <script>
+
+        function Status(_id) {
+            StatusData('/Admin/ArticleCategory/ChangeStatus', { Id: _id });
+        }
+
+    </script>
+
+}
