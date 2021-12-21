@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection.Metadata;
 
 namespace Fsn.Domain.Blog
@@ -13,5 +14,7 @@ namespace Fsn.Domain.Blog
         public DateTime CreateDate { get; set; }
         public Guid ArticleCategoryId { get; set; }
         public TArticleCategory ArticleCategory { get; set; }
+        public ICollection<TComment> Comments { get; set; }
+
     }
 }
