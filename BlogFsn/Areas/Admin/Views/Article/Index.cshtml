@@ -1,0 +1,72 @@
+﻿
+
+@model Fsn.Application.Contracts.Article.ListArticle
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "پست ها";
+}
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">لیست پست ها</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/Admin/Blog/index">خانه</a></li>
+                    <li class="breadcrumb-item active">لیست پست ها</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+
+<div class="content">
+    <div class="container-fluid">
+        
+        <div class="col-md-2">
+            <a href="/Admin/Article/Create" class="btn btn-primary">افزودن➕</a>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2 text-bold">مشاهده پست ها</h5>
+                        <div id="example2_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <form id="Articleform" action="/Admin/Article/Search" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#Content">
+                                        <div id="Content">
+                                            <partial name="_Article" model="@Model"/>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section JS
+{
+    
+    <script>
+        function sendPage(pagenum) {
+            $("#pageid").val(pagenum);
+            $("#Articleform").submit();
+        }
+    </script>
+
+}

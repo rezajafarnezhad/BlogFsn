@@ -83,7 +83,7 @@ namespace Fsn.Application
             return Category;
         }
 
-       
+
         public async Task<OperationResult> Edit(CategoryForEdit categoryForEdit)
         {
             OperationResult operationResult = new OperationResult();
@@ -91,7 +91,7 @@ namespace Fsn.Application
             if (await _articleCategoryRepo.Get.AnyAsync(c => c.Title == categoryForEdit.Title && c.Id != categoryForEdit.Id))
                 return operationResult.Failed("نام تکراری میباشد");
 
-            var ArticleCategory = new TArticleCategory() { Id = categoryForEdit.Id,Title = categoryForEdit.Title,IsActive=categoryForEdit.IsActive };
+            var ArticleCategory = new TArticleCategory() { Id = categoryForEdit.Id, Title = categoryForEdit.Title, IsActive = categoryForEdit.IsActive };
             await _articleCategoryRepo.UpdateAsync(ArticleCategory);
             return operationResult.Succeeded();
         }
@@ -120,6 +120,15 @@ namespace Fsn.Application
             await _articleCategoryRepo.UpdateAsync(Category);
             return operationResult.Succeeded();
 
+        }
+
+        public async Task<List<ArticleCategory>> GetForArticle()
+        {
+            return await _articleCategoryRepo.Get.Select(c => new ArticleCategory()
+            {
+                Id = c.Id,
+                Title = c.Title
+            }).ToListAsync();
         }
 
     }

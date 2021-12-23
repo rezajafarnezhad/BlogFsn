@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Framework.Application;
 using Fsn.Infrastracture.Core;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 
@@ -28,6 +29,8 @@ namespace BlogFsn
             services.AddControllersWithViews();
             services.AddScoped<ImsgBox, msgBox>();
             services.Config(Configuration.GetConnectionString("FSNConnection"));
+            services.AddScoped<IUploadFile, FileUpload>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

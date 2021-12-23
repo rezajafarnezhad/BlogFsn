@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Framework.Application;
 
@@ -12,5 +13,6 @@ namespace Fsn.Application.Contracts.Article
         Task<OperationResult> Edit(CategoryForEdit categoryForEdit);
         Task<OperationResult> Delete(Guid Id);
         Task<OperationResult> ChangeStatuse(Guid Id);
+        Task<List<ArticleCategory>> GetForArticle();
     }
 }
