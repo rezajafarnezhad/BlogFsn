@@ -2,7 +2,6 @@
 
 @model Fsn.Application.Contracts.Article.ListArticle
 
-
 <div class="row">
     <input type="hidden" id="pageid" name="PageId" value="@Model.PageId" />
 
@@ -39,7 +38,7 @@
         {
             <tr role="row" class="odd">
                 <td class="text-center">
-                    <img src="/Images/@item.Image" height="80" width="75" class="img-hover-scale img-bordered"/>
+                    <img src="/Images/@item.Image" height="80" width="75" class="img-hover-scale img-bordered" />
                 </td>
                 <td>@item.Title</td>
                 <td>@item.ArticleCategoryName</td>
@@ -50,7 +49,7 @@
                     {<i class="text-danger fa fa-toggle-off"></i>}
                 </td>
                 <td class="text-center">
-                    <button onclick="Edit('@item.Id')" type="button" class="btn btn-outline-warning"><i class="fa fa-edit"></i></button>
+                    <a href="/Admin/Article/Edit/@item.Id" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
                     <button onclick="Delete('@item.Id')" type="button" class="btn btn-outline-danger"><i class="fa fa-times"></i></button>
 
                     @if (item.IsActive)

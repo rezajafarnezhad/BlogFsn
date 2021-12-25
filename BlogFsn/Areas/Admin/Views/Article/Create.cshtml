@@ -63,12 +63,12 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <textarea rows="6" type="text" class="form-control" asp-for="Content" placeholder="محتوا"></textarea>
+                                                    <textarea  id="Content" type="text" class="form-control" asp-for="Content" cols="80" rows="15"></textarea>
                                                     <span asp-validation-for="Title" class="error"></span>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -94,13 +94,24 @@
 @section JS
 {
 
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckeditor/adapters/jquery.js"></script>
     <script>
-
         function GotoIndex() {
-            
+
             location.href = '/Admin/Article/Index';
         }
 
     </script>
+    <script>
+        $(function () {
+            $('#Content').ckeditor();
+        });
+
+    </script>
 
 }
+
+
+
+

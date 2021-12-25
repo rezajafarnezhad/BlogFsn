@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- template rtl version -->
     <link rel="stylesheet" href="/Admin/dist/css/custom-style.css">
     <link href="~/lib/sweetalert/sweetalert.css" rel="stylesheet" />
-
+    @RenderSection("css", false)
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -194,12 +194,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </li>
                                 </ul>
                             </li>
-                            
+
                             <li class="nav-item has-treeview menu-open">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-dashboard"></i>
                                     <p>
-                                        مدیریت مفالات 
+                                        مدیریت مفالات
                                         <i class="right fa fa-angle-left"></i>
                                     </p>
                                 </a>

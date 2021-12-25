@@ -1,0 +1,114 @@
+﻿
+
+
+@model Fsn.Application.Contracts.Article.Edit
+
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "ویرایش پست ";
+}
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">ویرایش پست</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/Admin/Blog/index">خانه</a></li>
+                    <li class="breadcrumb-item active">ویرایش پست</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2 text-bold">ویرایش پست  _  (@Model.Title) </h5>
+                        <div id="example2_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form id="EditFrm" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <input type="hidden" class="form-control" asp-for="Id">
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" asp-for="Title" placeholder="عنوان">
+                                                    <span asp-validation-for="Title" class="error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <select asp-for="ArticleCategoryId" asp-items="@ViewBag.Categorsies" class="form-control">
+                                                        <option value="0">دسته</option>
+                                                    </select>
+                                                    <span asp-validation-for="ArticleCategoryId" class="error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <input type="file" asp-for="ImagFile" accept="image/*">
+                                                    <span asp-validation-for="ImagFile" class="error"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <textarea id="Content" type="text" class="form-control" asp-for="Content"></textarea>
+                                                    <span asp-validation-for="Title" class="error"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <button type="button" onclick="SendForm('/Admin/Article/Edit','EditFrm')" class="btn btn-warning">ویرایش شود</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section JS
+{
+
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckeditor/adapters/jquery.js"></script>
+    <script>
+        function GotoIndex() {
+
+            location.href = '/Admin/Article/Index';
+        }
+    </script>
+    <script>
+        $(function () {
+            $('#Content').ckeditor();
+        });
+    </script>
+
+}

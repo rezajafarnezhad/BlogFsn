@@ -27,12 +27,11 @@
 
 <div class="content">
     <div class="container-fluid">
-        
-        <div class="col-md-2">
-            <a href="/Admin/Article/Create" class="btn btn-primary">افزودن➕</a>
-        </div>
-        <br/>
+
         <div class="row">
+            <div class="col-md-12">
+                <a href="/Admin/Article/Create" class="btn btn-secondary btn-block">افزودن➕</a>
+            </div>
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
@@ -43,7 +42,7 @@
 
                                     <form id="Articleform" action="/Admin/Article/Search" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#Content">
                                         <div id="Content">
-                                            <partial name="_Article" model="@Model"/>
+                                            <partial name="_Article" model="@Model" />
                                         </div>
                                     </form>
 
@@ -61,12 +60,38 @@
 
 @section JS
 {
-    
+
     <script>
         function sendPage(pagenum) {
             $("#pageid").val(pagenum);
             $("#Articleform").submit();
         }
     </script>
+
+
+
+    <script>
+
+        function Status(_id) {
+
+            StatusData("/Admin/Article/ChangeStatus", { Id: _id });
+
+        }
+
+
+        function Delete(_id) {
+
+            RemoveData("/Admin/Article/Delete", { Id: _id });
+
+        }
+
+        function RefreshTable() {
+            $("#myTable").load("/Admin/Article/Index #myTable");
+        }
+
+
+
+    </script>
+
 
 }

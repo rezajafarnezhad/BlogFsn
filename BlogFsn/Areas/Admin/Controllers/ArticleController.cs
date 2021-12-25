@@ -67,5 +67,66 @@ namespace BlogFsn.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet()]
+        public async Task<IActionResult> Edit(Guid Id)
+        {
+            ViewBag.Categorsies = new SelectList(await _articleCategoryApplication.GetForArticle(), "Id", "Title");
+
+            var ArticleForEdit = await _articleApplication.GetForEdit(Id);
+
+            return View(ArticleForEdit);
+
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Edit edit)
+        {
+            if (string.IsNullOrWhiteSpace(edit.Content) || string.IsNullOrWhiteSpace(edit.Title))
+            {
+                return _msgBox.FaildMsg("تمامی اطلاعات وارد شود");
+            }
+
+            var result = await _articleApplication.Edit(edit);
+            if (result.isSucceeded)
+            {
+                return _msgBox.SuccessMsg(result.Message, "GotoIndex()");
+            }
+            else
+            {
+                return _msgBox.FaildMsg(result.Message);
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid Id)
+        {
+            var result = await _articleApplication.Delete(Id);
+            if (result.isSucceeded)
+            {
+                return _msgBox.SuccessMsg(result.Message, "RefreshTable()");
+            }
+            else
+            {
+                return _msgBox.FaildMsg(result.Message);
+
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeStatus(Guid Id)
+        {
+            var result = await _articleApplication.ChangeStatus(Id);
+            if (result.isSucceeded)
+            {
+                return _msgBox.SuccessMsg(result.Message, "RefreshTable()");
+            }
+            else
+            {
+                return _msgBox.FaildMsg(result.Message);
+
+            }
+        }
     }
 }

@@ -82,5 +82,101 @@ namespace Fsn.Application
             }
 
         }
+
+        public async Task<Edit> GetForEdit(Guid Id)
+        {
+            var Article = await _articleRepo.Get.Where(c => c.Id == Id)
+                .Select(c => new Edit()
+                {
+                    Id = c.Id,
+                    Image = c.Image,
+                    Title = c.Title,
+                    ArticleCategoryId = c.ArticleCategoryId,
+                    //CreationDate = c.CreateDate.ToString(),
+                    Content = c.Content,
+                }).SingleOrDefaultAsync();
+
+            if (Article == null)
+                return null;
+
+            return Article;
+
+        }
+
+        public async Task<OperationResult> Edit(Edit edit)
+        {
+            OperationResult operationResult = new OperationResult();
+            try
+            {
+                var Article = await _articleRepo.GetById(edit.Id);
+                if (Article is null)
+                    return operationResult.Failed();
+
+                Article.Title = edit.Title;
+                Article.Content = edit.Content;
+                Article.ArticleCategoryId = edit.ArticleCategoryId;
+                if (edit.ImagFile != null)
+                {
+                    _uploadFile.DeleteFile(Article.Image);
+                    Article.Image = _uploadFile.Upload(edit.ImagFile);
+                }
+
+                await _articleRepo.UpdateAsync(Article);
+                return operationResult.Succeeded();
+            }
+            catch (Exception)
+            {
+                return operationResult.Failed();
+            }
+
+        }
+
+
+
+        public async Task<OperationResult> Delete(Guid Id)
+        {
+            OperationResult operationResult = new OperationResult();
+
+            try
+            {
+
+                var Article = await _articleRepo.GetById(Id);
+                if (Article is null)
+                    return operationResult.Failed();
+
+                await _articleRepo.DeleteAsync(Article);
+                return operationResult.Succeeded();
+
+
+            }
+            catch (Exception)
+            {
+                return operationResult.Failed();
+            }
+        }
+
+
+        public async Task<OperationResult> ChangeStatus(Guid Id)
+        {
+            OperationResult operationResult = new OperationResult();
+
+            try
+            {
+
+                var Article = await _articleRepo.GetById(Id);
+                if (Article is null)
+                    return operationResult.Failed();
+
+                Article.IsActive = !Article.IsActive;
+                await _articleRepo.UpdateAsync(Article);
+                return operationResult.Succeeded();
+
+
+            }
+            catch (Exception)
+            {
+                return operationResult.Failed();
+            }
+        }
     }
 }

@@ -17,6 +17,17 @@ namespace Fsn.Application.Contracts.Article
         public string CreationDate { get; set; }
     }
 
+    public class Edit
+    {
+        public Guid Id { get; set; }
+        public string Image { get; set; }
+        public string Title { get; set; }
+        public IFormFile ImagFile { get; set; }
+        public string Content { get; set; }
+        public Guid ArticleCategoryId { get; set; }
+        public string CreationDate { get; set; }
+    }
+
     public class ArticleS
     {
         public Guid Id { get; set; }
