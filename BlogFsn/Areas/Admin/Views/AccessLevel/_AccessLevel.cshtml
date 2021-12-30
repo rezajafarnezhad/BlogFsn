@@ -1,0 +1,88 @@
+﻿
+
+@model Fsn.Application.Contracts.AccessLevel.ListAccessLevels
+
+
+@{
+    Layout = null;
+}
+
+<div class="row">
+    <input type="hidden" id="pageid" name="PageId" value="@Model.PageId" />
+
+    <div class="col-md-6">
+        <input type="text" asp-for="@Model.Filter" name="filter" class="form-control" placeholder="جستجو عنوان..." />
+    </div>
+    <div class="col-md-4">
+        <select name="take" class="form-control">
+            <option value="@Model.Take">تعداد نمایش</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <input type="submit" class="btn btn-info form-control" value="فیلتر" />
+    </div>
+</div>
+<hr />
+
+<table id="myTable" class="table table-bordered table-hover table-striped dataTable" role="grid">
+    <thead>
+        <tr role="row">
+            <th class="text-center">عنوان</th>
+            <th class="text-center">تعداد کاربران عضو</th>
+            <th class="text-center">عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AccessLevels)
+        {
+            <tr role="row" class="odd">
+                <td class="text-center">@item.Title</td>
+                <td class="text-center">
+
+                    @if (item.Count == 0)
+                    {
+                        <p>(کاربری ندارد)</p>
+                    }
+                    else
+                    {
+                        <p>@item.Count  (نفر)</p>
+                    }
+                </td>
+                <td class="text-center">
+                    <a href="#" onclick="Edit('@item.Id')" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
+                    <button onclick="Delete('@item.Id')" type="button" class="btn btn-outline-danger"><i class="fa fa-times"></i></button>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+<div class="col-md-12 text-center">
+
+    @if (Model.PageId > 1)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId-1))">
+            قبلی
+        </a>
+    }
+
+    @for (int page = Model.StartPage; page <= Model.EndPage; page++)
+    {
+        <a class="btn @((page==Model.PageId)?"btn-success border-primary" :"border-primary") " style="cursor: pointer" onclick="sendPage(@(page))">
+            @(page)
+        </a>
+    }
+    @if (Model.PageId < Model.PageCount)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId+1))">
+            بعدی
+        </a>
+    }
+
+</div>

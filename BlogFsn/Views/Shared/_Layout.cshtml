@@ -94,11 +94,10 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="register.html" class="font-weight-bold">ثبت نام</a>
+                                            <a href="#" onclick="Register()" class="font-weight-bold">ثبت نام</a>
                                         </li>
                                         <li>
-                                            <a href="login.html" class="font-weight-bold">ورود</a>
-
+                                            <a href="#" onclick="Login()" class="font-weight-bold">ورود</a>
                                         </li>
 
                                     </ul>
@@ -110,7 +109,7 @@
             </div>
         </header>
 
-        
+
 
         @RenderBody()
 
@@ -295,6 +294,23 @@
     <script src="/Site/assets/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="/Site/assets/js/vendor/popper.min.js"></script>
     <script src="/Site/assets/js/vendor/bootstrap.min.js"></script>
+    <script src="~/Shared/Shared.js"></script>
+
+    <script>
+        function Login() {
+            LoadComponenet('/Account/Login',null, function (res) {
+                $('body').append(res);
+                $('#frmLogin').modal();
+            });
+        }
+
+        function Register() {
+            LoadComponenet('/Account/Register',null, function (res) {
+                $('body').append(res);
+                $('#frmRegister').modal();
+            });
+        }
+    </script>
 
     @RenderSection("JS", false)
 

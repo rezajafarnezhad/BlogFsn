@@ -1,0 +1,28 @@
+﻿.k-header {
+    background-position: 50% 50%;
+    background-color: #3f3f3f;
+    color: #ffffff;
+}
+
+.k-grid td {
+    line-height: 2.6em;
+}
+
+
+.k-grid .dropdown-menu {
+    overflow: hidden;
+}
+
+    .k-grid .dropdown-menu .dropdown-icon {
+        margin: 0 5px;
+    }
+
+.k-widget * {
+    box-sizing: border-box !important;
+}
+
+.k-widget.k-treeview {
+    color: #4e4e4e;
+}
+
+

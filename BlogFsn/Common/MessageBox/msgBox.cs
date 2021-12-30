@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Framework.Infrastructure;
-using PrancaBeauty.WebApp.Common.Types;
+﻿using BlogFsn.Common.Types;
 
-
-namespace PrancaBeauty.WebApp.Common.Utility.MessageBox
+namespace BlogFsn.Common.MessageBox
 {
     public class msgBox : ImsgBox
     {

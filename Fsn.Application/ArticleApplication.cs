@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Framework.Application;
 using Fsn.Application.Contracts.Article;
+using Fsn.Application.Interfaces;
 using Fsn.Domain.Blog;
 using Microsoft.EntityFrameworkCore;
 

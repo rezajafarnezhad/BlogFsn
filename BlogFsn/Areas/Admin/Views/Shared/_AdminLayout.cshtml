@@ -26,7 +26,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="~/lib/sweetalert/sweetalert.css" rel="stylesheet" />
     @RenderSection("css", false)
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini pr-5">
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand border-bottom navbar-dark bg-primary">
@@ -176,8 +176,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <!-- Add icons to the links using the .nav-icon class
-                                 with font-awesome or any other icon font library -->
-                            <li class="nav-item has-treeview menu-open">
+                            with font-awesome or any other icon font library -->
+
+
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fa fa-dashboard"></i>
+                                    <p>
+                                        مدیریت سطوح دسترسی
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/Admin/AccessLevel/Index" class="nav-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>مشاهده لیست سطوح دسترسی</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-dashboard"></i>
                                     <p>
@@ -195,7 +216,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </ul>
                             </li>
 
-                            <li class="nav-item has-treeview menu-open">
+                            <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-dashboard"></i>
                                     <p>
@@ -207,7 +228,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <li class="nav-item">
                                         <a href="/Admin/Article/Index" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>مشاهده لیست مفالات</p>
+                                            <p>مشاهده لیست مقالات</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -241,18 +262,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <footer class="main-footer">
         </footer>
     </div>
+
+
     <!-- ./wrapper -->
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
-    <script src="/Admin/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
+    <script src="/Admin/plugins/jquery/jquery.min.js"></script>
+
     <script src="/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/lib/sweetalert/sweetalert.js"></script>
     <!-- AdminLTE App -->
     <script src="/Admin/dist/js/adminlte.min.js"></script>
-    @RenderSection("JS", false);
     <script src="~/Shared/Shared.js"></script>
 
+    @RenderSection("JS", false);
 </body>
 </html>

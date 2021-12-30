@@ -1,0 +1,75 @@
+﻿
+@{
+
+    Layout = null;
+}
+
+
+<div class="modal fade" id="frmLogin" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="exampleModalLabel">ورود به سایت</h5>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">ایمیل</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label">رمز عبور</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label">
+                                    مرا به خاطر بسپار
+                                    <input type="checkbox">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <div class="text-muted text-center">ثبت نام نکرده ام  <a href="#" onclick="GotoRegister()">  (ثبت نام)  </a></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success btn-block">ورود</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    function Close() {
+        $(document).ready(function () {
+            $('#frmLogin').remove();
+            $('.modal-backdrop').remove();
+        });
+    }
+
+    function GotoRegister() {
+        $(document).ready(function () {
+            $('#frmLogin').remove();
+            $('.modal-backdrop').remove();
+            Register();
+        });
+    }
+
+</script>

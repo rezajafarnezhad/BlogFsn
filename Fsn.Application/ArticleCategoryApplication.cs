@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Framework.Application;
 using Fsn.Application.Contracts.Article;
+using Fsn.Application.Interfaces;
 using Fsn.Domain.Blog;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,6 @@ namespace Fsn.Application
     public class ArticleCategoryApplication : IArticleCategoryApplication
     {
         private readonly IArticleCategoryRepo _articleCategoryRepo;
-
         public ArticleCategoryApplication(IArticleCategoryRepo articleCategoryRepo)
         {
             _articleCategoryRepo = articleCategoryRepo;

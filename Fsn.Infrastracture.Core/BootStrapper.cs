@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Framework.Domain;
+using Framework.Infrastructure;
 using Fsn.Application;
 using Fsn.Application.Contracts.AccessLevel;
 using Fsn.Application.Contracts.Article;
-using Fsn.Application.Contracts.Role;
 using Fsn.Application.Contracts.User;
+using Fsn.Application.Interfaces;
 using Fsn.Domain.Account.AccessLevel;
 using Fsn.Domain.Account.RoleAgg;
 using Fsn.Domain.Account.UserAgg;
@@ -25,8 +26,9 @@ namespace Fsn.Infrastracture.Core
         public static void Config(this IServiceCollection service, string connectionString)
         {
 
-            service.AddDbContext<MainContext>(options => options.UseSqlServer(connectionString));
+            service.AddDbContext<MainContext>(options => options.UseSqlServer(connectionString), ServiceLifetime.Singleton);
 
+            service.AddSingleton(typeof(IRepo<>), typeof(BaseRepo<>));
 
             service.AddScoped<IUserRepo, UserRepo>();
             service.AddScoped<IUserApplication, UserApplication>();
@@ -43,7 +45,7 @@ namespace Fsn.Infrastracture.Core
             service.AddScoped<IArticleRepo, ArticleRepo>();
             service.AddScoped<IArticleApplication, ArticleApplication>();
 
-            service.AddScoped<IArticleCategoryRepo,ArticleCategoryRepo>();
+            service.AddScoped<IArticleCategoryRepo, ArticleCategoryRepo>();
             service.AddScoped<IArticleCategoryApplication, ArticleCategoryApplication>();
         }
     }

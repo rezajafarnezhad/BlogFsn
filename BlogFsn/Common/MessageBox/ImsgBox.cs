@@ -1,6 +1,6 @@
-﻿using PrancaBeauty.WebApp.Common.Types;
+﻿using BlogFsn.Common.Types;
 
-namespace PrancaBeauty.WebApp.Common.Utility.MessageBox
+namespace BlogFsn.Common.MessageBox
 {
     public interface ImsgBox
     {

@@ -13,6 +13,7 @@ namespace Fsn.Domain.Account.UserAgg
     {
         public string FullName { get; set; }
         public bool IsActive { get; set; }
+        public DateTime CreateionData { get; set; }
         public Guid AccessLevelId { get; set; }
         public TAccessLevel TAccessLevel { get; set; }
 

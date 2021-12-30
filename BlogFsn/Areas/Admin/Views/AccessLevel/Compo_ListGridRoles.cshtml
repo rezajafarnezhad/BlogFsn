@@ -1,0 +1,241 @@
+﻿@using BlogFsn.Areas.Admin.Models
+@using System.Globalization
+
+
+@{
+    
+}
+
+
+
+
+@if (Model.Input.AccessLevelId == null)
+{
+    <script>
+        function IsSelected(_Id) {
+            return '';
+        }
+    </script>
+}
+else
+{
+    <script>
+        function IsSelected(_Id)
+        {
+            var RolesId = '@string.Join(",", (string[])ViewData["SelectedRoles"])';
+            if (RolesId.includes(_Id))
+            {
+                return 'checked';
+            }
+            else
+            {
+                return '';
+            }
+        }
+    </script>
+}
+
+<script>
+    function onDataBound(e) {
+        var data = this.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.get("HasChild") == false) {
+                $('tr[data-uid="' + row.uid + '"]').find(".k-hierarchy-cell a").remove();
+            }
+        });
+        this.expandRow(this.tbody.find("tr.k-master-row"));
+        this.collapseRow(this.tbody.find("tr.k-master-row"));
+    }
+</script>
+@if (Model.Input.AccessLevelId == null)
+{
+
+    <div class="k-lang">
+        @(Html.Kendo()
+          .Grid<Compo_ListGridRolesViewModel>()
+          .Name("ListRoles")
+            .Pageable(a=>a.Enabled(false))
+          .Sortable(false)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input #=IsSelected(Id)# value='#=Id#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Description).Sortable(false);
+              col.Bound(a => a.Name).Sortable(false);
+              col.Bound(a => a.PageName).Sortable(false);
+          })
+          .PersistSelection()
+          .Events(a=> {
+              a.DataBound("onDataBound");
+          })
+          .ClientDetailTemplateId("ListAccessLevelTmpl")
+          .DataSource(ds=> ds.Ajax()
+                             .Model(model=> model.Id(a=>a.Id))
+                             .Read(read=> read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/AccessLevel/CompoListGridRoles?handler=Read").Data("forgeryToken"))))
+    </div>
+
+    <script id="ListAccessLevelTmpl" type="text/kendo-tmpl">
+    @(Html.Kendo()
+          .Grid<Compo_ListGridRolesViewModel>()
+          .Name("ListRoles_Child#=Id#")
+        .Pageable(a=>a.Enabled(false))
+          .Sortable(false)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Id)\\# value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Description).Sortable(false);
+              col.Bound(a => a.Name).Sortable(false);
+              col.Bound(a => a.PageName).Sortable(false);
+          })
+          .PersistSelection()
+          .Events(a=> {
+              a.DataBound("onDataBound");
+          })
+          .ClientDetailTemplateId("ListAccessLevelTmpl_ChildTmpl")
+          .DataSource(ds=> ds.Ajax()
+                             .Model(model=> model.Id(a=>a.Id))
+                             .Read(read=> read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/AccessLevel/CompoListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
+          .ToClientTemplate())
+    </script>
+
+    <script id="ListAccessLevelTmpl_ChildTmpl" type="text/kendo-tmpl">
+     @(Html.Kendo()
+          .Grid<Compo_ListGridRolesViewModel>()
+          .Name("ListRoles_Child#=Id#")
+          
+          .Pageable(a=>a.Enabled(false))
+          .Sortable(false)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Id)\\# value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Description).Sortable(false);
+              col.Bound(a => a.Name).Sortable(false);
+              col.Bound(a => a.PageName).Sortable(false);
+          })
+          .PersistSelection()
+          .Events(a=> {
+              a.DataBound("onDataBound");
+          })
+          .ClientDetailTemplateId("ListAccessLevelTmpl_ChildTmpl_Child")
+          .DataSource(ds=> ds.Ajax()
+                             .Model(model=> model.Id(a=>a.Id))
+                             .Read(read=> read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/AccessLevel/CompoListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
+          .ToClientTemplate())
+    </script>
+
+    <script id="ListAccessLevelTmpl_ChildTmpl_Child" type="text/kendo-tmpl">
+     @(Html.Kendo()
+          .Grid<Compo_ListGridRolesViewModel>()
+          .Name("ListRoles_Child#=Id#")
+         
+          .Pageable(a=>a.Enabled(false))
+          .Sortable(false)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Id)\\# value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Description).Sortable(false);
+              col.Bound(a => a.Name).Sortable(false);
+              col.Bound(a => a.PageName).Sortable(false);
+          })
+          .PersistSelection()
+          .Events(a=> {
+              a.DataBound("onDataBound");
+          })
+          .DataSource(ds=> ds.Ajax()
+                             .Model(model=> model.Id(a=>a.Id))
+                             .Read(read=> read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/AccessLevel/CompoListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
+          .ToClientTemplate())
+    </script>
+}
+else
+{
+
+    <div class="k-lang">
+        @(Html.Kendo()
+          .Grid<Compo_ListGridRolesViewModel>()
+          .Name("ListRoles")
+          
+          .Pageable(a=>a.Enabled(false))
+          .Sortable(false)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input #=IsSelected(Name)# value='#=Name#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Description).Sortable(false);
+              col.Bound(a => a.Name).Sortable(false);
+              col.Bound(a => a.PageName).Sortable(false);
+          })
+          .PersistSelection()
+          .Events(a=> {
+              a.DataBound("onDataBound");
+          })
+          .ClientDetailTemplateId("ListAccessLevelTmpl")
+          .DataSource(ds=> ds.Ajax()
+                             .Model(model=> model.Id(a=>a.Id))
+                             .Read(read=> read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/AccessLevel/CompoListGridRoles?handler=Read").Data("forgeryToken"))))
+    </div>
+
+    <script id="ListAccessLevelTmpl" type="text/kendo-tmpl">
+    @(Html.Kendo()
+          .Grid<Compo_ListGridRolesViewModel>()
+          .Name("ListRoles_Child#=Id#")
+          
+          .Pageable(a=>a.Enabled(false))
+          .Sortable(false)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Name)\\# value='\\#=Name\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Description).Sortable(false);
+              col.Bound(a => a.Name).Sortable(false);
+              col.Bound(a => a.PageName).Sortable(false);
+          })
+          .PersistSelection()
+          .Events(a=> {
+              a.DataBound("onDataBound");
+          })
+          .ClientDetailTemplateId("ListAccessLevelTmpl_ChildTmpl")
+          .DataSource(ds=> ds.Ajax()
+                             .Model(model=> model.Id(a=>a.Id))
+                             .Read(read=> read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/AccessLevel/CompoListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
+          .ToClientTemplate())
+    </script>
+
+    <script id="ListAccessLevelTmpl_ChildTmpl" type="text/kendo-tmpl">
+     @(Html.Kendo()
+          .Grid<Compo_ListGridRolesViewModel>()
+          .Name("ListRoles_Child#=Id#")
+          
+          .Pageable(a=>a.Enabled(false))
+          .Sortable(false)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Name)\\# value='\\#=Name\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Description).Sortable(false);
+              col.Bound(a => a.Name).Sortable(false);
+              col.Bound(a => a.PageName).Sortable(false);
+          })
+          .PersistSelection()
+          .Events(a=> {
+              a.DataBound("onDataBound");
+          })
+          .ClientDetailTemplateId("ListAccessLevelTmpl_ChildTmpl_Child")
+          .DataSource(ds=> ds.Ajax()
+                             .Model(model=> model.Id(a=>a.Id))
+                             .Read(read=> read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/AccessLevel/CompoListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
+          .ToClientTemplate())
+    </script>
+
+    <script id="ListAccessLevelTmpl_ChildTmpl_Child" type="text/kendo-tmpl">
+     @(Html.Kendo()
+          .Grid<Compo_ListGridRolesViewModel>()
+          .Name("ListRoles_Child#=Id#")
+          
+          .Pageable(a=>a.Enabled(false))
+          .Sortable(false)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Name)\\# value='\\#=Name\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Description).Sortable(false);
+              col.Bound(a => a.Name).Sortable(false);
+              col.Bound(a => a.PageName).Sortable(false);
+          })
+          .PersistSelection()
+          .Events(a=> {
+              a.DataBound("onDataBound");
+          })
+          .DataSource(ds=> ds.Ajax()
+                             .Model(model=> model.Id(a=>a.Id))
+                             .Read(read=> read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/AccessLevel/CompoListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
+          .ToClientTemplate())
+    </script>
+}

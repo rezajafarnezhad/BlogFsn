@@ -8,9 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogFsn.Common.MessageBox;
 using Framework.Application;
+using Framework.Domain;
+using Framework.Infrastructure;
 using Fsn.Infrastracture.Core;
-using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 
 namespace BlogFsn
 {
@@ -28,8 +30,9 @@ namespace BlogFsn
         {
             services.AddControllersWithViews();
             services.AddScoped<ImsgBox, msgBox>();
-            services.Config(Configuration.GetConnectionString("FSNConnection"));
             services.AddScoped<IUploadFile, FileUpload>();
+            services.Config(Configuration.GetConnectionString("FSNConnection"));
+            services.AddCustomIdentity();
 
         }
 

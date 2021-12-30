@@ -35,10 +35,10 @@ namespace Fsn.Infrastructure.EF.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             var asb = typeof(TUserMapping).Assembly;
             modelBuilder.ApplyConfigurationsFromAssembly(asb);
 
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

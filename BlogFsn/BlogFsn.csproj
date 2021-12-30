@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
@@ -19,7 +18,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2020.1.219" />
   </ItemGroup>
 
   <ItemGroup>

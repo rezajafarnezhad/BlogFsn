@@ -118,6 +118,9 @@ namespace Fsn.Infrastructure.EF.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreateionData")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -233,6 +236,34 @@ namespace Fsn.Infrastructure.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TArticleCategory");
+                });
+
+            modelBuilder.Entity("Fsn.Domain.Blog.TComment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ArticleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Statuse")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.ToTable("TComment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -387,6 +418,17 @@ namespace Fsn.Infrastructure.EF.Migrations
                     b.Navigation("ArticleCategory");
                 });
 
+            modelBuilder.Entity("Fsn.Domain.Blog.TComment", b =>
+                {
+                    b.HasOne("Fsn.Domain.Blog.TArticle", "Article")
+                        .WithMany("Comments")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Fsn.Domain.Account.RoleAgg.TRole", null)
@@ -450,6 +492,11 @@ namespace Fsn.Infrastructure.EF.Migrations
                     b.Navigation("TAccessLevelRoles");
 
                     b.Navigation("TRole_Childs");
+                });
+
+            modelBuilder.Entity("Fsn.Domain.Blog.TArticle", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("Fsn.Domain.Blog.TArticleCategory", b =>

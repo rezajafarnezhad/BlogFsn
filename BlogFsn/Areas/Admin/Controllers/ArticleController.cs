@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogFsn.Common.MessageBox;
 using Fsn.Application.Contracts.Article;
+using Fsn.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 
 namespace BlogFsn.Areas.Admin.Controllers
 {

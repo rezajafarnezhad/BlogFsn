@@ -1,0 +1,105 @@
+﻿
+
+@model Fsn.Application.Contracts.AccessLevel.EditAccesslevel
+
+
+@{
+    Layout = null;
+}
+
+<div class="modal fade bd-example-modal-lg" id="EditAcc" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <form id="AccFrmEdit" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ویرایش سطح دسترسی  (@Model.Title)</h5>
+                    <button type="button" onclick="Close()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <input type="hidden" asp-for="Id">
+                                <label class="control-label ">عنوان</label>
+                                <input type="text" asp-for="Title" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-7">
+                            <label class="control-label col-md-4">انتخاب دسترسی ها</label>
+                            <div class="col-md-12">
+                                <select asp-for="Roles" asp-items="@ViewBag.ListRole" class="multi-select" multiple="multiple" id="my_multi_select3">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="SendForm('/Admin/AccessLevel/Edit','AccFrmEdit')" class="btn btn-warning">ویرایش</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function Close() {
+        $(document).ready(function () {
+            $('#EditAcc').remove();
+            $('.modal-backdrop').remove();
+        });
+    }
+
+</script>
+
+<script src="~/Admin/dist/js/jquery-multi-select/jquery.multi-select.js"></script>
+<script src="~/Admin/dist/js/jquery-multi-select/jquery.quicksearch.js"></script>
+
+<script>
+    jQuery(document).ready(function () {
+        $('#my_multi_select3').multiSelect({
+            selectableOptgroup: true,
+            selectableHeader:
+                "<input type='text' class='form-control search-input' autocomplete='off' placeholder='جستجو...'>",
+            selectionHeader:
+                "<h6 class='text-success control-label font-weight-bold'>انتخاب شده ها</h6> <input type='text' class= 'form-control search-input' autocomplete='off' placeholder='جستجو...'> ",
+
+            afterInit: function (ms) {
+                var that = this,
+                    $selectableSearch = that.$selectableUl.prev(),
+                    $selectionSearch = that.$selectionUl.prev(),
+                    selectableSearchString =
+                        '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                    selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+                that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                    .on('keydown',
+                        function (e) {
+                            if (e.which === 40) {
+                                that.$selectableUl.focus();
+                                return false;
+                            }
+                        });
+                that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                    .on('keydown',
+                        function (e) {
+                            if (e.which == 40) {
+                                that.$selectionUl.focus();
+                                return false;
+                            }
+                        });
+            },
+            afterSelect: function () {
+                this.qs1.cache();
+                this.qs2.cache();
+            },
+            afterDeselect: function () {
+                this.qs1.cache();
+                this.qs2.cache();
+            }
+        });
+    });
+</script>

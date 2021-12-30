@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Framework.Application;
+using Fsn.Application.Contracts.Article;
 
-namespace Fsn.Application.Contracts.Article
+namespace Fsn.Application.Interfaces
 {
     public interface IArticleCategoryApplication
     {

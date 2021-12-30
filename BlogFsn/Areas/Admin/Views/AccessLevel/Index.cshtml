@@ -1,0 +1,114 @@
+﻿
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "مدیریت سطوح دسترسی";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">لیست سطوح دسترسی</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/Admin/Blog/index">خانه</a></li>
+                    <li class="breadcrumb-item active">لیست پست ها</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#" onclick="Create()" class="btn btn-secondary btn-block"> افزودن➕ </a>
+            </div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2 text-bold">مشاهده سطوح دسترسی</h5>
+                        <div id="example2_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <form id="AccessLevelform" action="/Admin/AccessLevel/Search" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#Content">
+                                        <div id="Content">
+                                            <partial name="_AccessLevel" model="@Model" />
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section css
+{
+    <link href="~/Admin/dist/js/jquery-multi-select/multi-select.css" rel="stylesheet" />
+}
+
+@section JS
+{
+
+
+    <script>
+        function sendPage(pagenum) {
+            $("#pageid").val(pagenum);
+            $("#AccessLevelform").submit();
+        }
+    </script>
+
+
+    <script>
+        function GotoIndex() {
+            location.href = '/Admin/AccessLevel/Index?PageId=1&take=10&filter';
+            $("#myTable").load("/Admin/AccessLevel/Index #myTable");
+        }
+
+        function RefreshTbl() {
+            $("#myTable").load("/Admin/AccessLevel/Index #myTable");
+        }
+
+        function Create() {
+
+            LoadComponenet("/Admin/AccessLevel/Create",
+                null,
+                function(res) {
+                    $('body').append(res);
+                    $('#CreateAcc').modal();
+                });
+        }
+
+        function Edit(_Id) {
+
+            LoadComponenet("/Admin/AccessLevel/Edit",
+                { Id: _Id },
+                function(res) {
+                    $('body').append(res);
+                    $('#EditAcc').modal();
+                });
+        }
+
+        function Delete(_Id) {
+            RemoveData('/Admin/AccessLevel/Delete', { Id: _Id });
+        }
+
+    </script>
+
+
+}

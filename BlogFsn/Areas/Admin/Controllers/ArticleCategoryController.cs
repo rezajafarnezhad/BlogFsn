@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlogFsn.Common.ExMethods;
+using BlogFsn.Common.MessageBox;
 using Fsn.Application.Contracts.Article;
-using PrancaBeauty.WebApp.Common.Utility.MessageBox;
+using Fsn.Application.Interfaces;
 
 namespace BlogFsn.Areas.Admin.Controllers
 {

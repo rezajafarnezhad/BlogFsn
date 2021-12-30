@@ -80,9 +80,7 @@
     <script>
 
         function Edit(_Id) {
-            LoadComponenet('/Admin/ArticleCategory/Edit',
-                { Id: _Id },
-                function (res) {
+            LoadComponenet('/Admin/ArticleCategory/Edit', { Id: _Id }, function (res) {
                     $('body').append(res);
                     $('#EditCat').modal();
                 });

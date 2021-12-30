@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
       <PrivateAssets>all</PrivateAssets>
@@ -19,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Fsn.Application.Contracts\Fsn.Application.Contracts.csproj" />
     <ProjectReference Include="..\Fsn.Domain\Fsn.Domain.csproj" />
     <ProjectReference Include="..\Fsn.Infrastructure.Identity\Fsn.Infrastructure.Identity.csproj" />
   </ItemGroup>
