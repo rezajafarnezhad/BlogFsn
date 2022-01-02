@@ -15,9 +15,11 @@ namespace Fsn.Infrastructure.EF.Repository
     public class RoleRepo : BaseRepo<TRole>, IRoleRepo
     {
         private readonly RoleManager<TRole> _roleManager;
-        public RoleRepo(MainContext context, RoleManager<TRole> roleManager) : base(context)
+        private readonly UserManager<TUser> _userManager;
+        public RoleRepo(MainContext context, RoleManager<TRole> roleManager, UserManager<TUser> userManager) : base(context)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public async Task<List<OutListOfRoles>> GetListOfRolesAsync()
@@ -49,5 +51,10 @@ namespace Fsn.Infrastructure.EF.Repository
             return Roles;
         }
 
+
+        public async Task<List<string>> GetRolesBy(TUser user)
+        {
+            return  (await _userManager.GetRolesAsync(user)).ToList();
+        }
     }
 }

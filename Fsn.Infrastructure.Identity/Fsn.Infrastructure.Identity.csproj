@@ -9,4 +9,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Fsn.Infrastructure.Identity.JWT\Fsn.Infrastructure.Identity.JWT.csproj" />
+  </ItemGroup>
+
 </Project>

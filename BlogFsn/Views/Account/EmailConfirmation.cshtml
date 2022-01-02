@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "تایید حساب";
+}
+
+<main class="position-relative">
+    <!--archive header-->
+    <div class="archive-header text-center">
+        <div class="container">
+            <div class="breadcrumb" dir="rtl">
+                <a href="/" rel="nofollow">خانه</a>
+                <span></span> تایید حساب
+            </div>
+            <div class="bt-1 border-color-1 mt-30 mb-50"></div>
+        </div>
+    </div>
+    <!--main content-->
+    <div class="main_content sidebar_right pb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    @if (ViewBag.Status == true)
+                    {
+                        <div class="alert alert-info text-right">
+                            <p>@ViewBag.Message</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger text-right">
+                            <p>@ViewBag.Message</p>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

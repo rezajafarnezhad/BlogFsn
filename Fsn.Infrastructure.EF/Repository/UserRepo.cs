@@ -16,11 +16,17 @@ namespace Fsn.Infrastructure.EF.Repository
     {
 
         private readonly UserManager<TUser> _userManager;
-        private readonly RoleManager<TRole> _roleManager;
-        public UserRepo(MainContext context, UserManager<TUser> userManager, RoleManager<TRole> roleManager) : base(context)
+        private readonly SignInManager<TUser> _signInManager;
+
+        public UserRepo(MainContext context, UserManager<TUser> userManager, SignInManager<TUser> signInManager) : base(context)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
+            _signInManager = signInManager;
+        }
+
+        public async Task<TUser> GetUserByEmail(string email)
+        {
+            return await Get.Where(c => c.Email == email).SingleOrDefaultAsync();
         }
 
         public async Task<IdentityResult> RemoveAllRolesByUserAsync(TUser user)
@@ -32,6 +38,26 @@ namespace Fsn.Infrastructure.EF.Repository
         public async Task<IdentityResult> AddToRolesAsync(TUser user, string[] Roles)
         {
             return await _userManager.AddToRolesAsync(user, Roles);
+        }
+
+        public async Task<IdentityResult> CreateUser(TUser user, string password)
+        {
+            return await _userManager.CreateAsync(user, password);
+        }
+
+        public async Task<string> GenerateEmailConfirmationToken(TUser user)
+        {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public async Task<IdentityResult> EmailConfirmation(TUser user, string token)
+        {
+           return await _userManager.ConfirmEmailAsync(user, token);
+        }
+
+        public async Task<SignInResult> PasswordSignIn(TUser user, string password, bool isPersistent, bool lockoutOnFailure)
+        {
+            return await _signInManager.PasswordSignInAsync(user,password, isPersistent, lockoutOnFailure);
         }
     }
 }

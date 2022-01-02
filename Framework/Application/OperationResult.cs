@@ -9,6 +9,7 @@ namespace Framework.Application
     public class OperationResult
     {
         public string Message { get; set; }
+        public string Data { get; set; }
         public bool isSucceeded { get; set; }
 
         public OperationResult()
@@ -21,10 +22,8 @@ namespace Framework.Application
             isSucceeded = true;
             Message = message;
             return this;
-
-
         }
-
+       
         public OperationResult Failed(string message = "عملیات با شکست مواجه شد")
         {
             isSucceeded = false;

@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Framework.Domain;
 using Framework.Infrastructure;
+using Framework.Infrastructure.Email;
 using Fsn.Application;
 using Fsn.Application.Contracts.AccessLevel;
 using Fsn.Application.Contracts.Article;
@@ -29,6 +30,7 @@ namespace Fsn.Infrastracture.Core
             service.AddDbContext<MainContext>(options => options.UseSqlServer(connectionString), ServiceLifetime.Singleton);
 
             service.AddSingleton(typeof(IRepo<>), typeof(BaseRepo<>));
+            service.AddSingleton<IEmailSender,EmailSender>();
 
             service.AddScoped<IUserRepo, UserRepo>();
             service.AddScoped<IUserApplication, UserApplication>();

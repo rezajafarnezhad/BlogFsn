@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Fsn.Application.Contracts.Role;
 using Fsn.Application.Interfaces;
 using Fsn.Domain.Account.RoleAgg;
+using Fsn.Domain.Account.UserAgg;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fsn.Application
@@ -40,5 +41,19 @@ namespace Fsn.Application
             return await _roleRepo.Get.Where(c => c.Name == name).Select(c => c.Id).SingleOrDefaultAsync();
         }
 
+        public async Task<List<string>> GetRolesByUserAsync(TUser user)
+        {
+            try
+            {
+                if (user is null)
+                    return null;
+
+                return await _roleRepo.GetRolesBy(user);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

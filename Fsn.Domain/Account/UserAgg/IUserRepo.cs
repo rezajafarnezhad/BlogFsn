@@ -5,8 +5,13 @@ using Microsoft.AspNetCore.Identity;
 namespace Fsn.Domain.Account.UserAgg
 {
     public interface IUserRepo : IRepo<TUser>
-    {
+    { 
+        Task<TUser> GetUserByEmail(string email);
         Task<IdentityResult> RemoveAllRolesByUserAsync(TUser user);
         Task<IdentityResult> AddToRolesAsync(TUser user, string[] Roles);
+        Task<IdentityResult> CreateUser(TUser user, string password);
+        Task<string> GenerateEmailConfirmationToken(TUser user);
+        Task<IdentityResult> EmailConfirmation(TUser user, string token);
+        Task<SignInResult> PasswordSignIn(TUser user, string password, bool isPersistent, bool lockoutOnFailure);
     }
 }

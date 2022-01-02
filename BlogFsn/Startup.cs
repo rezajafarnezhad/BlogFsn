@@ -7,12 +7,17 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using System.Threading.Tasks;
+using BlogFsn.Authentication;
 using BlogFsn.Common.MessageBox;
 using Framework.Application;
+using Framework.Application.Consts;
 using Framework.Domain;
 using Framework.Infrastructure;
 using Fsn.Infrastracture.Core;
+using Microsoft.Extensions.WebEncoders;
 
 namespace BlogFsn
 {
@@ -28,11 +33,32 @@ namespace BlogFsn
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCustomIdentity()
+                .AddErrorDescriber<CustomIdentityError>();
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("AdminPanelPolicy", pol => pol.RequireRole(new string[] { "AdminPage" }));
+
+            });
             services.AddControllersWithViews();
             services.AddScoped<ImsgBox, msgBox>();
             services.AddScoped<IUploadFile, FileUpload>();
+            services.AddScoped<IJWTBuilder, JWTBuilder>();
             services.Config(Configuration.GetConnectionString("FSNConnection"));
-            services.AddCustomIdentity();
+
+
+            services.AddMvc(options => options.ModelMetadataDetailsProviders.Add(new PersianDataAnnotationsCore.PersianValidationMetadataProvider()));
+
+            services.Configure<WebEncoderOptions>(opt =>
+            {
+                opt.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.Arabic, UnicodeRanges.BasicLatin);
+            });
+
+
+            
+
+            services.AddJwtAuthentication(AuthConst.SecretCode, AuthConst.SecretKey, AuthConst.Audience, AuthConst.Issuer);
+
 
         }
 
@@ -51,10 +77,11 @@ namespace BlogFsn
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.RedirectStatusCode();
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseJwtAuthentication(AuthConst.CookieName);
+
 
             app.UseEndpoints(endpoints =>
             {

@@ -25,4 +25,10 @@
     <ProjectReference Include="..\Fsn.Infrastracture.Core\Fsn.Infrastracture.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="PersianDataAnnotationsCore">
+      <HintPath>..\..\..\..\..\Downloads\PersianDataAnnotationsCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

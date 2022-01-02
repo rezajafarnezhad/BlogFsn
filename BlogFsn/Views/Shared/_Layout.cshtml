@@ -1,4 +1,6 @@
-﻿
+﻿@using BlogFsn.Common.ExMethods
+@using BlogFsn.Authentication
+
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -53,19 +55,26 @@
                                 <li class="list-inline-item"><a class="social-icon instagram-icon text-xs-center" target="_blank" href="#"><i class="ti-instagram"></i></a></li>
                             </ul>
                             <div class="vline-space d-inline-block"></div>
-                            <div class="user-account d-inline-block font-small">
-                                <a class="dropdown-toggle font-weight-bold" href="#" role="button" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="ti-user"></i>
-                                    <span>حساب کاربری</span>
-                                </a>
-                                <div id="userMenuDropdow" class="dropdown-menu dropdown-menu-right text-right shadow" aria-labelledby="userMenu">
-                                    <a class="dropdown-item" href="#"><i class="ti-pencil-alt"></i>ویرایش اطلاعات</a>
-                                    <a class="dropdown-item" href="#"><i class="ti-settings"></i>ثبت مقاله جدید</a>
-                                    <a class="dropdown-item" href="#"><i class="ti-stats-up"></i>لیست مقاله های من</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="login.html"><i class="ti-share"></i>خروج</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="user-account d-inline-block font-small">
+                                    <a class="dropdown-toggle font-weight-bold" href="#" role="button" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="ti-user"></i>
+                                        <span>@User.GetUserDetails().fullName</span>
+                                    </a>
+                                    <div id="userMenuDropdow" class="dropdown-menu dropdown-menu-right text-right shadow" aria-labelledby="userMenu">
+                                        @if (User.IsInRole(Roles.AdminPage))
+                                        {
+                                            <a class="dropdown-item" href="/Admin/Blog/Index"><i class="ti-pencil-alt"></i>مدیریت سایت</a>
+                                        }
+                                        <a class="dropdown-item" href="#"><i class="ti-settings"></i>ثبت مقاله جدید</a>
+                                        <a class="dropdown-item" href="#"><i class="ti-stats-up"></i>لیست مقاله های من</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" onclick="Logout('@Context.Request.GetCurrentUrl()')" href="#Logout"><i class="ti-share"></i>خروج</a>
+                                    </div>
                                 </div>
-                            </div>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -93,12 +102,15 @@
                                                 <li><a href="blogDetail.html" class="text-right">نحوه محاسبه قیمت سکه</a></li>
                                             </ul>
                                         </li>
-                                        <li>
-                                            <a href="#" onclick="Register()" class="font-weight-bold">ثبت نام</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" onclick="Login()" class="font-weight-bold">ورود</a>
-                                        </li>
+                                       @if (!User.Identity.IsAuthenticated)
+                                       {
+                                           <li>
+                                               <a href="#" onclick="Register()" class="font-weight-bold">ثبت نام</a>
+                                           </li>
+                                           <li>
+                                               <a href="#" onclick="Login()" class="font-weight-bold">ورود</a>
+                                           </li>
+                                       }
 
                                     </ul>
                                 </nav>
@@ -298,14 +310,14 @@
 
     <script>
         function Login() {
-            LoadComponenet('/Account/Login',null, function (res) {
+            LoadComponenet('/Account/Login', null, function (res) {
                 $('body').append(res);
                 $('#frmLogin').modal();
             });
         }
 
         function Register() {
-            LoadComponenet('/Account/Register',null, function (res) {
+            LoadComponenet('/Account/Register', null, function (res) {
                 $('body').append(res);
                 $('#frmRegister').modal();
             });

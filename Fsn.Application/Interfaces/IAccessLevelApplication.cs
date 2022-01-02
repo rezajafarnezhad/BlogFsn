@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Framework.Application;
 using Fsn.Application.Contracts.AccessLevel;
 
@@ -11,5 +12,6 @@ namespace Fsn.Application.Interfaces
         Task<EditAccesslevel> GetForEdit(string Id);
         Task<OperationResult> Edit(EditAccesslevel accesslevel);
         Task<OperationResult> Delete(string Id);
+        Task<Guid> GetIdByName(string name);
     }
 }

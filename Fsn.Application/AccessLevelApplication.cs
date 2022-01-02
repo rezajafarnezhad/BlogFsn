@@ -24,9 +24,9 @@ namespace Fsn.Application
         }
 
 
-        public async Task<ListAccessLevels> GetAll(int pageId , int take , string filter)
+        public async Task<ListAccessLevels> GetAll(int pageId, int take, string filter)
         {
-            var Result =  _accessLevelRepo.Get.Select(c => new AccessLevels()
+            var Result = _accessLevelRepo.Get.Select(c => new AccessLevels()
             {
                 Id = c.Id.ToString(),
                 Title = c.Name,
@@ -72,16 +72,22 @@ namespace Fsn.Application
                 await _accessLevelRepo.CreateAsync(AccessLevel);
                 return operationResult.Succeeded();
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return operationResult.Failed();
             }
         }
 
+        public async Task<Guid> GetIdByName(string name)
+        {
+
+            return await _accessLevelRepo.Get.Where(c => c.Name == name).Select(c => c.Id).SingleOrDefaultAsync();
+
+        }
 
         public async Task<EditAccesslevel> GetForEdit(string Id)
         {
-            var AccessLevel = await _accessLevelRepo.Get.Where(c=>c.Id == Guid.Parse(Id)).Select(c => new EditAccesslevel()
+            var AccessLevel = await _accessLevelRepo.Get.Where(c => c.Id == Guid.Parse(Id)).Select(c => new EditAccesslevel()
             {
                 Id = c.Id.ToString(),
                 Title = c.Name,
@@ -91,7 +97,6 @@ namespace Fsn.Application
 
             return AccessLevel;
         }
-
 
         public async Task<OperationResult> Edit(EditAccesslevel accesslevel)
         {
@@ -108,13 +113,13 @@ namespace Fsn.Application
             var result = await _accessLevelRoleApplication.RemoveByAccessLevelId(accesslevel.Id);
             if (result.isSucceeded)
             {
-               var result2=await _accessLevelRoleApplication.AddRolesToAccessLevele(accesslevel.Id, accesslevel.Roles);
-               if (result2.isSucceeded)
-               {
-                   await _accessLevelRepo.UpdateAsync(_AccessLevel);
-                   return operationResult.Succeeded();
-               }
-               return operationResult.Failed();
+                var result2 = await _accessLevelRoleApplication.AddRolesToAccessLevele(accesslevel.Id, accesslevel.Roles);
+                if (result2.isSucceeded)
+                {
+                    await _accessLevelRepo.UpdateAsync(_AccessLevel);
+                    return operationResult.Succeeded();
+                }
+                return operationResult.Failed();
             }
             else
             {
@@ -134,7 +139,7 @@ namespace Fsn.Application
                     return operationResult.Failed();
 
                 //Number Of Users
-                int numberofusers = await _accessLevelRepo.Get.Where(c=>c.Id==Guid.Parse(Id)).Select(c => c.TUsers.Count).SingleOrDefaultAsync();
+                int numberofusers = await _accessLevelRepo.Get.Where(c => c.Id == Guid.Parse(Id)).Select(c => c.TUsers.Count).SingleOrDefaultAsync();
 
                 if (numberofusers > 0)
                     return operationResult.Failed("کاربرانی عضو این سطح هستند امکان حذف این سطح وجود ندارد");

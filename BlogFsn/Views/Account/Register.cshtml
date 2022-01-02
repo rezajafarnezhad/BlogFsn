@@ -1,4 +1,6 @@
 ﻿
+@model BlogFsn.Models.ViewInput.RegisterViewInput
+
 @{
     Layout = null;
 }
@@ -11,58 +13,75 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="modal-title" id="exampleModalLabel">ورود به سایت</h5>
+                <h5 class="modal-title" id="exampleModalLabel">ثبت نام در سایت</h5>
             </div>
             <div class="modal-body">
-                <div class="modal-body">
-                    <div class="row">
-                        
-                        <div class="col-md-12">
-                            <div class="form-group text-right">
-                                <label class="control-label ">نام و فامیلی</label>
-                                <input type="text" class="form-control">
+                <form method="post" id="frmregister">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group text-right">
+                                    <label class="control-label ">نام و فامیلی</label>
+                                    <input asp-for="FullName" type="text" class="form-control text-right">
+                                    <span asp-validation-for="FullName" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group text-right">
-                                <label class="control-label ">ایمیل</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
+                            <div class="col-md-12">
+                                <div class="form-group text-right">
+                                    <label class="control-label ">ایمیل</label>
+                                    <input asp-for="Email" type="email" class="form-control">
+                                    <span asp-validation-for="Email"  class="text-danger"></span>
 
-                        <div class="col-md-12">
-                            <div class="form-group text-right">
-                                <label class="control-label">رمز عبور</label>
-                                <input type="text" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="col-md-12">
-                            <div class="form-group text-right">
-                                <label class="control-label">تکرار رمز عبور</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group text-right">
-                                <div class="text-muted text-center"> قبلا ثبت نام کرده ام<a href="#" onclick="GotoLogin()">  (ورود)  </a></div>
+                            <div class="col-md-12">
+                                <div class="form-group text-right">
+                                    <label class="control-label">رمز عبور</label>
+                                    <input asp-for="Password" type="password" class="form-control">
+                                    <span asp-validation-for="Password"  class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group text-right">
+                                    <label class="control-label">تکرار رمز عبور</label>
+                                    <input asp-for="ConfirmPassword" type="password" class="form-control">
+                                    <span asp-validation-for="ConfirmPassword"  class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group text-right">
+                                    <div class="text-muted text-center"> قبلا ثبت نام کرده ام<a href="#" onclick="GotoLogin()"> (ورود) </a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success btn-block">ثبت نام</button>
-                </div>
+                    <div class="modal-footer">
+                        <button onclick="SendForm('/Account/Register', 'frmregister')" type="button" class="btn btn-success btn-block">ثبت نام</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
+<partial name="_ValidationScriptsPartial" />
 
 
 
+<link href="~/lib/sweetalert/sweetalert.css" rel="stylesheet" />
+<script src="~/lib/sweetalert/sweetalert.js"></script>
 <script>
+
+
+    function GotoIndex() {
+        location.href = '/Home/Index';
+    }
+
     function Close() {
         $(document).ready(function () {
             $('#frmRegister').remove();
