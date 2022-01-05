@@ -91,8 +91,15 @@ namespace Fsn.Application
             if (await _articleCategoryRepo.Get.AnyAsync(c => c.Title == categoryForEdit.Title && c.Id != categoryForEdit.Id))
                 return operationResult.Failed("نام تکراری میباشد");
 
-            var ArticleCategory = new TArticleCategory() { Id = categoryForEdit.Id, Title = categoryForEdit.Title, IsActive = categoryForEdit.IsActive };
-            await _articleCategoryRepo.UpdateAsync(ArticleCategory);
+            var _Category = await _articleCategoryRepo.GetById(categoryForEdit.Id);
+            
+            if (_Category is null)
+                return operationResult.Failed();
+
+            _Category.Title = categoryForEdit.Title;
+            _Category.IsActive = categoryForEdit.IsActive;
+          
+            await _articleCategoryRepo.UpdateAsync(_Category);
             return operationResult.Succeeded();
         }
 

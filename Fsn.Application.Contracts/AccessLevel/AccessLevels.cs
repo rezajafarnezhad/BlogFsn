@@ -27,6 +27,11 @@ namespace Fsn.Application.Contracts.AccessLevel
         public string[] Roles { get; set; }
     }
 
+    public class AccessLevelForUser
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+    }
     public class ListAccessLevels : BasePaging
     {
 

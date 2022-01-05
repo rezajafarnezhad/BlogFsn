@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Framework.Application;
 using Fsn.Application.Contracts.AccessLevel;
@@ -13,5 +14,7 @@ namespace Fsn.Application.Interfaces
         Task<OperationResult> Edit(EditAccesslevel accesslevel);
         Task<OperationResult> Delete(string Id);
         Task<Guid> GetIdByName(string name);
+        Task<List<AccessLevelForUser>> GetAccessLevelForUser();
+        Task<string[]> GetRolesNameByAccessLevelId(string accessLevelId);
     }
 }

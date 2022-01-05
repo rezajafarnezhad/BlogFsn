@@ -1,5 +1,6 @@
 ﻿
 
+@using BlogFsn.Authentication
 @model Fsn.Application.Contracts.Article.ListArticle
 
 <div class="row">
@@ -49,18 +50,28 @@
                     {<i class="text-danger fa fa-toggle-off"></i>}
                 </td>
                 <td class="text-center">
-                    <a href="/Admin/Article/Edit/@item.Id" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
-                    <button onclick="Delete('@item.Id')" type="button" class="btn btn-outline-danger"><i class="fa fa-times"></i></button>
-
-                    @if (item.IsActive)
+                    @if (User.IsInRole(Roles.CanEditArticle))
                     {
-                        <button onclick="Status('@item.Id')" type="button" class="btn btn-outline-primary"><i class="fa fa-eye"></i></button>
+                        <a href="/Admin/Article/Edit/@item.Id" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
                     }
-                    else
+                    @if (User.IsInRole(Roles.CanRemoveArticle))
                     {
-                        <button onclick="Status('@item.Id')" type="button" class="btn btn-outline-primary"><i class="fa fa-eye-slash"></i></button>
-
+                        <button onclick="Delete('@item.Id')" type="button" class="btn btn-outline-danger"><i class="fa fa-times"></i></button>
                     }
+
+                    @if (User.IsInRole(Roles.CanChangeStatusArticle))
+                    {
+                        @if (item.IsActive)
+                        {
+                            <button onclick="Status('@item.Id')" type="button" class="btn btn-outline-primary"><i class="fa fa-eye"></i></button>
+                        }
+                        else
+                        {
+                            <button onclick="Status('@item.Id')" type="button" class="btn btn-outline-primary"><i class="fa fa-eye-slash"></i></button>
+
+                        }
+                    }
+
 
                 </td>
             </tr>

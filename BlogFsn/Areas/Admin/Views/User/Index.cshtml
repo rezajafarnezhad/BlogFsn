@@ -1,0 +1,115 @@
+﻿
+
+@model Fsn.Application.Contracts.User.ListUsers
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "مشاهده لیست کاربران";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">لیست کاربران</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/Admin/Blog/index">خانه</a></li>
+                    <li class="breadcrumb-item active">لیست کاربران</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#" onclick="Create()" class="btn btn-secondary btn-block">افزودن➕</a>
+            </div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2 text-bold">مشاهده کاربران</h5>
+                        <div id="example2_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <form id="Userform" action="/Admin/User/Search" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#Content">
+                                        <div id="Content">
+                                            <partial name="_Users" model="@Model" />
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JS
+{
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <script>
+
+
+        function Create() {
+            LoadComponenet("/Admin/User/Create/",
+                null,
+                function(res) {
+                    $('body').append(res);
+                    $('#CreateUser').modal();
+                });
+        }
+
+        function Edit(_Id) {
+            LoadComponenet("/Admin/User/Edit/",
+                { Id: _Id},
+                function(res) {
+                    $('body').append(res);
+                    $('#EditUser').modal();
+                });
+        }
+
+        function ChangeAcc(_Id) {
+            LoadComponenet("/Admin/User/ChangeAccessLevel/",
+                { Id: _Id},
+                function(res) {
+                    $('body').append(res);
+                    $('#ChangeAcc').modal();
+                });
+        }
+
+
+        function sendPage(pagenum) {
+            $("#pageid").val(pagenum);
+            $("#Userform").submit();
+        }
+
+        function RefreshTable() {
+            $("#myTable").load("/Admin/User/Index #myTable");
+            Close();
+        }
+
+        function Status(_Id) {
+            StatusData('/Admin/User/ChangeStatus/', { Id: _Id });
+        }
+
+        function Delete(_Id) {
+            RemoveData('/Admin/User/Delete/', { Id: _Id });
+        }
+    </script>
+}

@@ -299,6 +299,113 @@ namespace Fsn.Infrastructure.EF.Data
             }
             #endregion
 
+            #region ManageUsersPage
+            {
+                Guid _Id = new Guid().SequentialGuid();
+                if (!_repRoles.Get.Any(a => a.Name == "CanManageUsers"))
+                {
+                    _repRoles.CreateAsync(new TRole()
+                    {
+                        Id = _Id,
+                        ParentId = null,
+                        PageName = "ManageUsersPage",
+                        Sort = 190,
+                        Name = "CanManageUsers",
+                        NormalizedName = "CanManageUsers".ToUpper(),
+                        Description = "توانایی مدیریت کاربران"
+                    }).Wait();
+                }
+                else
+                {
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanManageUsers").Select(a => a.Id).Single();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListUsers"))
+                {
+                    _repRoles.CreateAsync(new TRole()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 200,
+                        Name = "CanViewListUsers",
+                        NormalizedName = "CanViewListUsers".ToUpper(),
+                        Description = "توانایی مشاهده لیست کاربران"
+                    }).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanAddUsers"))
+                {
+                    _repRoles.CreateAsync(new TRole()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 210,
+                        Name = "CanAddUsers",
+                        NormalizedName = "CanAddUsers".ToUpper(),
+                        Description = "توانایی افزودن کاربر جدید"
+                    }).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanEditUsers"))
+                {
+                    _repRoles.CreateAsync(new TRole()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 220,
+                        Name = "CanEditUsers",
+                        NormalizedName = "CanEditUsers".ToUpper(),
+                        Description = "توانایی ویرایش کاربر"
+                    }).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveUsers"))
+                {
+                    _repRoles.CreateAsync(new TRole()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 230,
+                        Name = "CanRemoveUsers",
+                        NormalizedName = "CanRemoveUsers".ToUpper(),
+                        Description = "توانایی حذف کاربر"
+                    }).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeUsersStatus"))
+                {
+                    _repRoles.CreateAsync(new TRole()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 240,
+                        Name = "CanChangeUsersStatus",
+                        NormalizedName = "CanChangeUsersStatus".ToUpper(),
+                        Description = "توانایی تغییر وضعیت کاربر"
+                    }).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeUsersAccessLevel"))
+                {
+                    _repRoles.CreateAsync(new TRole()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 250,
+                        Name = "CanChangeUsersAccessLevel",
+                        NormalizedName = "CanChangeUsersAccessLevel".ToUpper(),
+                        Description = "توانایی تغییر سطح دسترسی کاربر"
+                    }).Wait();
+                }
+            }
+            #endregion
+
             _repRoles.SaveChangeAsync().Wait();
         }
     }

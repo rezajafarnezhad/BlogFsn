@@ -48,7 +48,17 @@ namespace Fsn.Application
             return model;
 
         }
+        public async Task<List<AccessLevelForUser>> GetAccessLevelForUser()
+        {
+            var qdata = await _accessLevelRepo.Get.Select(c => new AccessLevelForUser()
+            {
+                Id = c.Id.ToString(),
+                Name = c.Name,
 
+            }).ToListAsync();
+
+            return qdata;
+        }
         public async Task<OperationResult> Create(CreateAccesslevel accesslevel)
         {
             OperationResult operationResult = new OperationResult();
@@ -77,7 +87,6 @@ namespace Fsn.Application
                 return operationResult.Failed();
             }
         }
-
         public async Task<Guid> GetIdByName(string name)
         {
 
@@ -126,7 +135,6 @@ namespace Fsn.Application
                 return operationResult.Failed();
             }
         }
-
         public async Task<OperationResult> Delete(string Id)
         {
             OperationResult operationResult = new OperationResult();
@@ -150,6 +158,23 @@ namespace Fsn.Application
             catch (Exception)
             {
                 return operationResult.Failed();
+            }
+        }
+
+        public async Task<string[]> GetRolesNameByAccessLevelId(string accessLevelId)
+        {
+            try
+            {
+
+                var qdata = await _accessLevelRepo.Get
+                    .Where(c => c.Id == Guid.Parse(accessLevelId))
+                    .Select(c => c.TAccessLevelRoles.Select(v => v.TRole.Name.ToString()).ToArray()).SingleAsync();
+
+                return qdata;
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 

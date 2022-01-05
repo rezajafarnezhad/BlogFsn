@@ -38,6 +38,15 @@ namespace BlogFsn.Authentication
         public const string CanChangeStatusArticle = "CanChangeStatusArticle";
 
         #endregion
+        #region Users
+        public const string CanManageUsers = "CanManageUsers";
+        public const string CanViewListUsers = "CanViewListUsers";
+        public const string CanAddUsers = "CanAddUsers";
+        public const string CanEditUsers = "CanEditUsers";
+        public const string CanRemoveUsers = "CanRemoveUsers";
+        public const string CanChangeUsersStatus = "CanChangeUsersStatus";
+        public const string CanChangeUsersAccessLevel = "CanChangeUsersAccessLevel";
+        #endregion
     }
 }
 

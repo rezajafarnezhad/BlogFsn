@@ -4,16 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
+using BlogFsn.Authentication;
 using BlogFsn.Common.MessageBox;
 using Fsn.Application.Contracts.AccessLevel;
 using Fsn.Application.Interfaces;
 using Kendo.Mvc.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 
 namespace BlogFsn.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = Roles.CanManageAccessLevel)]
     public class AccessLevelController : Controller
     {
         private readonly IAccessLevelApplication _accessLevelApplication;
@@ -43,8 +46,8 @@ namespace BlogFsn.Areas.Admin.Controllers
         }
 
 
+        [Authorize(Roles = Roles.CanAddAccessLevel)]
         [HttpGet]
-
         public async Task<IActionResult> Create()
         {
             var ListRoles = new List<SelectListItem>();
@@ -69,6 +72,8 @@ namespace BlogFsn.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Roles.CanAddAccessLevel)]
+
         public async Task<IActionResult> Create(CreateAccesslevel accesslevel)
         {
             if (string.IsNullOrWhiteSpace(accesslevel.Title) || accesslevel.Roles == null)
@@ -86,6 +91,7 @@ namespace BlogFsn.Areas.Admin.Controllers
         }
 
 
+        [Authorize(Roles = Roles.CanEditAccessLevel)]
         public async Task<IActionResult> Edit(string Id)
         {
             if (Id is null)
@@ -123,7 +129,7 @@ namespace BlogFsn.Areas.Admin.Controllers
 
         }
 
-
+        [Authorize(Roles = Roles.CanEditAccessLevel)]
         [HttpPost]
         public async Task<IActionResult> Edit(EditAccesslevel accesslevel)
         {
@@ -139,6 +145,8 @@ namespace BlogFsn.Areas.Admin.Controllers
                 if (UpdateRolesResult.isSucceeded)
                 {
                     //Save ,{List} users ID  of users at this access level for update tokens 
+                    var UserIds = await _userApplication.GetUserIdsByAcccessLevelId(accesslevel.Id);
+                    CacheUsersToRebuildToken.AddRenge(UserIds);
 
                     return _msgBox.SuccessMsg(UpdateRolesResult.Message, "GotoIndex()");
                 }
@@ -156,12 +164,14 @@ namespace BlogFsn.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = Roles.CanRemoveAccessLevel)]
+
         public async Task<IActionResult> Delete(string id)
         {
             var Result = await _accessLevelApplication.Delete(id);
             if (Result.isSucceeded)
             {
-                return _msgBox.SuccessMsg(Result.Message,"RefreshTbl()");
+                return _msgBox.SuccessMsg(Result.Message, "RefreshTbl()");
             }
             else
             {

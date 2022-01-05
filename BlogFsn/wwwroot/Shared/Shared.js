@@ -2,8 +2,8 @@
 
 window.confirm = function (_text, _title, _yesAction = function () { }) {
     swal.fire({
-        title: _title,
         text: _text,
+        title: _title,
         icon: 'warning',
         showCancelButton: true,
         cancelButtonColor: '#3085d6',

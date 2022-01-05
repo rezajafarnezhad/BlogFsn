@@ -1,0 +1,137 @@
+﻿
+@using Framework.Infrastructure
+@using BlogFsn.Authentication
+@model Fsn.Application.Contracts.User.ListUsers
+
+@{
+    Layout = null;
+}
+
+
+<div class="row">
+    <input type="hidden" id="pageid" name="PageId" value="@Model.PageId" />
+    <div class="col-md-3">
+        <input type="text" asp-for="@Model.Filter" name="filter" class="form-control" placeholder="جستجو نام یا ایمیل..." />
+    </div>
+
+    <div class="col-md-2">
+        <select name="Fillter2" class="form-control">
+            <option value="@Model.Fillter2">فیلتر</option>
+            <option value="All">همه</option>
+            <option value="IsNotActive">کاربران غیرفعال</option>
+            <option value="IsNotConfEmail">ایمیل تایید نشده ها</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select name="take" class="form-control">
+            <option value="@Model.Take">تعداد نمایش</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+
+    <div class="col-md-2">
+        <input type="submit" class="btn btn-info form-control" value="فیلتر" />
+    </div>
+</div>
+<hr />
+
+<table id="myTable" class="table table-bordered table-hover table-striped dataTable" role="grid">
+    <thead>
+        <tr role="row">
+            <th>نام</th>
+            <th>ایمیل</th>
+            <th>نقش</th>
+            <th>وضعیت ایمیل</th>
+            <th>وضعیت حساب</th>
+            <th>تاریخ ثبت نام</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UserInfos)
+        {
+            <tr role="row" class="odd">
+                <td>@item.FullName</td>
+                <td>@item.Email</td>
+                <td>@item.AccessLevelTile</td>
+                <td class="text-center">
+                    @if (item.IsEmailConfirmed)
+                    {
+                        <i class="text-success">✔</i>
+                    }
+                    else
+                    {
+                        <i class="text-danger">❌</i>
+
+                    }
+                </td>
+                <td class="text-center">
+                    @if (item.IsActive)
+                    {<i class="text-success fa fa-toggle-on"></i>}
+                    else
+                    {<i class="text-danger fa fa-toggle-off"></i>}
+                </td>
+                <td>@item.Date.ToString()</td>
+                <td class="text-center">
+                    @if (User.IsInRole(Roles.CanEditUsers))
+                    {
+                        <a onclick="Edit('@item.Id')" data-toggle="tooltip" title="ویرایش!" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
+                    }
+                    @if (User.IsInRole(Roles.CanChangeUsersAccessLevel))
+                    {
+                        <a onclick="ChangeAcc('@item.Id')" data-toggle="tooltip" title="تخصیص سطح دسترسی!" class="btn btn-outline-info"><i class="fa fa-list-alt"></i>ُ</a>
+                    }
+                    @if (User.IsInRole(Roles.CanRemoveUsers))
+                    {
+                        <a onclick="Delete('@item.Id')" data-toggle="tooltip" title="حذف!" class="btn btn-outline-danger"><i class="fa fa-times"></i></a>
+                    }
+                    @if (User.IsInRole(Roles.CanChangeUsersStatus))
+                    {
+                        @if (item.IsActive)
+                        {
+                            <a onclick="Status('@item.Id')" data-toggle="tooltip" title="تغییر وضعیت!" class="btn btn-outline-primary"><i class="fa fa-eye"></i></a>
+                        }
+                        else
+                        {
+                            <a onclick="Status('@item.Id')" data-toggle="tooltip" title="تغییر وضعیت!" class="btn btn-outline-primary"><i class="fa fa-eye-slash"></i></a>
+
+                        }
+                    }
+
+
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+<div class="col-md-12 text-center">
+
+    @if (Model.PageId > 1)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId-1))">
+            قبلی
+        </a>
+    }
+
+    @for (int page = Model.StartPage; page <= Model.EndPage; page++)
+    {
+        <a class="btn @((page==Model.PageId)?"btn-success border-primary" :"border-primary") " style="cursor: pointer" onclick="sendPage(@(page))">
+            @(page)
+        </a>
+    }
+    @if (Model.PageId < Model.PageCount)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId+1))">
+            بعدی
+        </a>
+    }
+
+</div>

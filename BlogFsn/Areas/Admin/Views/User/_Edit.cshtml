@@ -1,0 +1,65 @@
+﻿
+@model Fsn.Application.Contracts.User.EditUser
+
+@{
+    Layout = null;
+
+}
+
+
+<div class="modal fade bd-example-modal-lg" id="EditUser" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <form id="UserFrmEdit" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ویرایش کاربر (@Model.FullName)</h5>
+                    <button type="button" onclick="Close()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">نام و فامیلی*</label>
+                                <input type="text" asp-for="FullName" class="form-control">
+                                <input type="hidden" asp-for="Id" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">ایمیل*</label>
+                                <input type="text" asp-for="Email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">کلمه عبور*</label>
+                                <input type="password" asp-for="Password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">تکرار کلمه عبور*</label>
+                                <input type="password" asp-for="ConfirmPassword" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="SendForm('/Admin/User/Edit','UserFrmEdit')" class="btn btn-warning">ویرایش</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function Close() {
+        $(document).ready(function () {
+            $('#EditUser').remove();
+            $('.modal-backdrop').remove();
+        });
+    }
+
+</script>

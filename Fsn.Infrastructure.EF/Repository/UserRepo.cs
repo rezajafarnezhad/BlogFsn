@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Fsn.Infrastructure.EF.Repository
 {
-    public class UserRepo : BaseRepo<TUser> , IUserRepo
+    public class UserRepo : BaseRepo<TUser>, IUserRepo
     {
 
         private readonly UserManager<TUser> _userManager;
@@ -32,7 +32,7 @@ namespace Fsn.Infrastructure.EF.Repository
         public async Task<IdentityResult> RemoveAllRolesByUserAsync(TUser user)
         {
             var qRoles = await _userManager.GetRolesAsync(user);
-            return  await _userManager.RemoveFromRolesAsync(user, qRoles);
+            return await _userManager.RemoveFromRolesAsync(user, qRoles);
         }
 
         public async Task<IdentityResult> AddToRolesAsync(TUser user, string[] Roles)
@@ -45,6 +45,19 @@ namespace Fsn.Infrastructure.EF.Repository
             return await _userManager.CreateAsync(user, password);
         }
 
+        public async Task<IdentityResult> EditUser(TUser user)
+        {
+
+            return await _userManager.UpdateAsync(user);
+
+        }
+
+        public async Task<IdentityResult> ChangePassword(TUser user, string oldPass, string newPass)
+        {
+            await _userManager.RemovePasswordAsync(user);
+            return await _userManager.AddPasswordAsync(user,newPass);
+        }
+
         public async Task<string> GenerateEmailConfirmationToken(TUser user)
         {
             return await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -52,12 +65,13 @@ namespace Fsn.Infrastructure.EF.Repository
 
         public async Task<IdentityResult> EmailConfirmation(TUser user, string token)
         {
-           return await _userManager.ConfirmEmailAsync(user, token);
+            return await _userManager.ConfirmEmailAsync(user, token);
         }
 
         public async Task<SignInResult> PasswordSignIn(TUser user, string password, bool isPersistent, bool lockoutOnFailure)
         {
-            return await _signInManager.PasswordSignInAsync(user,password, isPersistent, lockoutOnFailure);
+            return await _signInManager.PasswordSignInAsync(user, password, isPersistent, lockoutOnFailure);
         }
+
     }
 }

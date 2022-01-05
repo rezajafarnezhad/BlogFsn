@@ -3,14 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogFsn.Authentication;
 using BlogFsn.Common.ExMethods;
 using BlogFsn.Common.MessageBox;
 using Fsn.Application.Contracts.Article;
 using Fsn.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlogFsn.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = Roles.CanManageCategories)]
     public class ArticleCategoryController : Controller
     {
         private readonly IArticleCategoryApplication _articleCategoryApplication;
@@ -36,6 +39,8 @@ namespace BlogFsn.Areas.Admin.Controllers
         }
 
 
+        [Authorize(Roles = Roles.CanAddCategory)]
+
         public IActionResult Create()
         {
 
@@ -43,6 +48,8 @@ namespace BlogFsn.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Roles.CanAddCategory)]
+
         public async Task<IActionResult> Create(string Title)
         {
             if (!ModelState.IsValid)
@@ -60,6 +67,7 @@ namespace BlogFsn.Areas.Admin.Controllers
             }
         }
 
+        [Authorize(Roles = Roles.CanEditCategory)]
 
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -69,6 +77,8 @@ namespace BlogFsn.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = Roles.CanEditCategory)]
+
         public async Task<IActionResult> Edit(CategoryForEdit categoryForEdit)
         {
             if (string.IsNullOrWhiteSpace(categoryForEdit.Title))
@@ -88,6 +98,8 @@ namespace BlogFsn.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = Roles.CanRemoveCategory)]
+
         public async Task<IActionResult> Delete(Guid Id)
         {
             
@@ -104,6 +116,8 @@ namespace BlogFsn.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Roles.CanChangeStatusCategory)]
+
         public async Task<IActionResult> ChangeStatus(Guid Id)
         {
 

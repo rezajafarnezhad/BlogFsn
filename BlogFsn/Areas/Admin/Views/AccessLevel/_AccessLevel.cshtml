@@ -1,5 +1,6 @@
 ﻿
 
+@using BlogFsn.Authentication
 @model Fsn.Application.Contracts.AccessLevel.ListAccessLevels
 
 
@@ -53,8 +54,15 @@
                     }
                 </td>
                 <td class="text-center">
-                    <a href="#" onclick="Edit('@item.Id')" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
-                    <button onclick="Delete('@item.Id')" type="button" class="btn btn-outline-danger"><i class="fa fa-times"></i></button>
+                    @if (User.IsInRole(Roles.CanEditAccessLevel))
+                    {
+                        <a href="#" onclick="Edit('@item.Id')" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
+
+                    }
+                    @if (User.IsInRole(Roles.CanRemoveAccessLevel))
+                    {
+                        <button onclick="Delete('@item.Id')" type="button" class="btn btn-outline-danger"><i class="fa fa-times"></i></button>
+                    }
                 </td>
             </tr>
         }

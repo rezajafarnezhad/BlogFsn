@@ -3,15 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogFsn.Authentication;
 using BlogFsn.Common.MessageBox;
 using Fsn.Application.Contracts.Article;
 using Fsn.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BlogFsn.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize(Roles = Roles.CanManageArticle)]
     public class ArticleController : Controller
     {
 
@@ -39,7 +42,7 @@ namespace BlogFsn.Areas.Admin.Controllers
         }
 
 
-
+        [Authorize(Roles = Roles.CanAddArticle)]
         public async Task<IActionResult> Create()
         {
             ViewBag.Categorsies = new SelectList(await _articleCategoryApplication.GetForArticle(), "Id", "Title");
@@ -49,6 +52,7 @@ namespace BlogFsn.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = Roles.CanAddArticle)]
         public async Task<IActionResult> Create(CreateArticle article)
         {
             if (string.IsNullOrWhiteSpace(article.Content) || string.IsNullOrWhiteSpace(article.Title)
@@ -68,7 +72,8 @@ namespace BlogFsn.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet()]
+        [HttpGet]
+        [Authorize(Roles = Roles.CanEditArticle)]
         public async Task<IActionResult> Edit(Guid Id)
         {
             ViewBag.Categorsies = new SelectList(await _articleCategoryApplication.GetForArticle(), "Id", "Title");
@@ -81,6 +86,7 @@ namespace BlogFsn.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = Roles.CanEditArticle)]
         public async Task<IActionResult> Edit(Edit edit)
         {
             if (string.IsNullOrWhiteSpace(edit.Content) || string.IsNullOrWhiteSpace(edit.Title))
@@ -101,6 +107,8 @@ namespace BlogFsn.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Roles.CanRemoveArticle)]
+
         public async Task<IActionResult> Delete(Guid Id)
         {
             var result = await _articleApplication.Delete(Id);
@@ -116,6 +124,7 @@ namespace BlogFsn.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Roles.CanChangeStatusArticle)]
         public async Task<IActionResult> ChangeStatus(Guid Id)
         {
             var result = await _articleApplication.ChangeStatus(Id);

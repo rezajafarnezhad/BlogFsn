@@ -81,7 +81,7 @@ namespace BlogFsn
             app.UseRouting();
 
             app.UseJwtAuthentication(AuthConst.CookieName);
-
+            app.UseMiddleware<NeedToRebuildTokenMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

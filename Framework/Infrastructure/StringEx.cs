@@ -33,11 +33,6 @@ namespace Framework.Infrastructure
         }
 
 
-        public static string ReplaceRegex(this string text, string Pattern, string NewText)
-        {
-            return Regex.Replace(text, Pattern, NewText);
-        }
-
     }
 
 
