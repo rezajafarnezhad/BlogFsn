@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using Framework.Application;
@@ -10,9 +13,20 @@ namespace Fsn.Application.Contracts.Article
 {
     public class CreateArticle
     {
+        [Required]
+        [DisplayName("عنوان")]
+
         public string Title { get; set; }
+        [Required]
+        [DisplayName("عکس")]
+
         public IFormFile ImagFile { get; set; }
+        [Required]
+        [DisplayName("محتوا")]
         public string Content { get; set; }
+        [Required]
+        [DisplayName("دسته")]
+
         public Guid ArticleCategoryId { get; set; }
         public string CreationDate { get; set; }
     }
@@ -21,9 +35,18 @@ namespace Fsn.Application.Contracts.Article
     {
         public Guid Id { get; set; }
         public string Image { get; set; }
+        [Required]
+        [DisplayName("عنوان")]
+
         public string Title { get; set; }
+        
         public IFormFile ImagFile { get; set; }
+        [Required]
+        [DisplayName("محتوا")]
         public string Content { get; set; }
+        [Required]
+        [DisplayName("دسته")]
+
         public Guid ArticleCategoryId { get; set; }
         public string CreationDate { get; set; }
     }

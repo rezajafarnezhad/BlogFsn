@@ -1,0 +1,104 @@
+﻿
+@model Fsn.Application.Contracts.Article.ListArticle
+
+@{
+    Layout = null;
+}
+
+
+<div class="col-md-12 text-center">
+    <div class="container">
+        <div class="search">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 offset-lg-3 offset-md-3">
+                    <input type="hidden" id="pageid" name="PageId" value="@Model.PageId" />
+                    <div>
+                        <div class="search-2">
+                            <i class='bx bxs-map'></i>
+                            <input class="border-secondary" type="text" name="filter" asp-for="Fillter" placeholder="عنوان را جستجو کنید">
+                            <button type="submit">جستجو</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12 col-sm-12">
+    <!--loop-list-->
+    <div class="loop-metro post-module-1 row">
+        
+        @if (Model.ArticleS.Count==0)
+        {
+        <div class="col-lg-12">
+            <div class="col-lg-6 col-md-6 offset-lg-3 offset-md-3">
+                <div class="alert alert-warning text-center">
+                    مقاله ایی با این عنوان پیدا نشد
+                    <br />
+                    <br />
+                    <a href="/" class="text-dark"> ( بازگشت به صفحه اصلی )</a>
+                </div>
+            </div>
+        </div>
+
+        }
+
+        @foreach (var item in Model.ArticleS)
+        {
+            <article class="col-lg-4 col-md-6 col-sm-12 mb-30 text-right">
+                <div class="post-thumb position-relative">
+                    <div class="thumb-overlay img-hover-slide border-radius-5 position-relative" style="background-image: url(/Images/@item.Image)">
+                        <NavLink class="img-link" href="blogDetail.html"></NavLink>
+                        <div class="post-content-overlay">
+                            <h6 class="post-title">
+                                <NavLink class="color-white" href="blogDetail.html">@item.Title</NavLink>
+                            </h6>
+
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        }
+
+    </div>
+    <!--pagination-->
+    <div class="pagination-area pt-30 text-center bt-1 border-color-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+
+                    <div class="col-md-12 text-center">
+
+                        <div class="pagination">
+
+
+                            @if (Model.PageId > 1)
+                            {
+                                <a style="cursor: pointer" onclick="sendPage(@(Model.PageId-1))">
+                                    &laquo;
+                                </a>
+                            }
+                            @for (int page = Model.StartPage; page <= Model.EndPage; page++)
+                            {
+                                <a class="@((page==Model.PageId)?"active" :"") circele" style="cursor: pointer" onclick="sendPage(@(page))">
+                                    @(page)
+                                </a>
+                            }
+                            @if (Model.PageId < Model.PageCount)
+                            {
+                                <a style="cursor: pointer" onclick="sendPage(@(Model.PageId+1))">
+                                    &raquo;
+                                </a>
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

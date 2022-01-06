@@ -37,14 +37,24 @@
                         <div id="example2_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form id="EditFrm" enctype="multipart/form-data">
+                                    <form action="/Admin/Article/Edit" method="post" enctype="multipart/form-data">
                                         <div class="row">
-                                            <input type="hidden" class="form-control" asp-for="Id">
 
+                                            @if (ViewBag.Error != null)
+                                            {
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="alert alert-info">
+                                                            <p>@ViewBag.Error</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
                                             <div class="col-md-6">
                                                 <div class="form-group">
+                                                    <input type="hidden" class="form-control" asp-for="Id" placeholder="عنوان">
                                                     <input type="text" class="form-control" asp-for="Title" placeholder="عنوان">
-                                                    <span asp-validation-for="Title" class="error"></span>
+                                                    <span asp-validation-for="Title" class="error text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -52,13 +62,13 @@
                                                     <select asp-for="ArticleCategoryId" asp-items="@ViewBag.Categorsies" class="form-control">
                                                         <option value="0">دسته</option>
                                                     </select>
-                                                    <span asp-validation-for="ArticleCategoryId" class="error"></span>
+                                                    <span asp-validation-for="ArticleCategoryId" class="error text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <input type="file" asp-for="ImagFile" accept="image/*">
-                                                    <span asp-validation-for="ImagFile" class="error"></span>
+                                                    <span asp-validation-for="ImagFile" class="error text-danger"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -66,8 +76,8 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <textarea id="Content" type="text" class="form-control" asp-for="Content"></textarea>
-                                                    <span asp-validation-for="Title" class="error"></span>
+                                                    <textarea class="form-control" asp-for="Content"></textarea>
+                                                    <span asp-validation-for="Content" class="error text-danger"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -75,7 +85,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <button type="button" onclick="SendForm('/Admin/Article/Edit','EditFrm')" class="btn btn-warning">ویرایش شود</button>
+                                                    <button type="submit" class="btn btn-success">ویرایش</button>
                                                 </div>
                                             </div>
                                         </div>

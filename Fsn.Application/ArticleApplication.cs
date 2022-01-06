@@ -73,7 +73,10 @@ namespace Fsn.Application
                 if (createArticle.ImagFile != null)
                     Article.Image = _uploadFile.Upload(createArticle.ImagFile);
 
-                await _articleRepo.UpdateAsync(Article);
+                if(await _articleRepo.Get.AnyAsync(c=>c.Title == Article.Title))
+                    return operationResult.Failed("عنوان تکراری میباشد");
+
+                await _articleRepo.CreateAsync(Article);
 
                 return operationResult.Succeeded();
             }

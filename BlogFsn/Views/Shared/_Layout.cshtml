@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/Site/assets/css/color.css">
     <link rel="stylesheet" href="/Site/assets/css/responsive.css">
     <link rel="stylesheet" href="/Site/css/custom.css" />
+    <link href="~/Site/css/_Search.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -102,15 +103,15 @@
                                                 <li><a href="blogDetail.html" class="text-right">نحوه محاسبه قیمت سکه</a></li>
                                             </ul>
                                         </li>
-                                       @if (!User.Identity.IsAuthenticated)
-                                       {
-                                           <li>
-                                               <a href="#" onclick="Register()" class="font-weight-bold">ثبت نام</a>
-                                           </li>
-                                           <li>
-                                               <a href="#" onclick="Login()" class="font-weight-bold">ورود</a>
-                                           </li>
-                                       }
+                                        @if (!User.Identity.IsAuthenticated)
+                                        {
+                                            <li>
+                                                <a href="#" onclick="Register()" class="font-weight-bold">ثبت نام</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" onclick="Login()" class="font-weight-bold">ورود</a>
+                                            </li>
+                                        }
 
                                     </ul>
                                 </nav>
@@ -306,6 +307,7 @@
     <script src="/Site/assets/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="/Site/assets/js/vendor/popper.min.js"></script>
     <script src="/Site/assets/js/vendor/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Shared/Shared.js"></script>
 
     <script>

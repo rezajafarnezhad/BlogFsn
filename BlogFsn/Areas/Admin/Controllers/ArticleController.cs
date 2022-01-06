@@ -8,6 +8,7 @@ using BlogFsn.Common.MessageBox;
 using Fsn.Application.Contracts.Article;
 using Fsn.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BlogFsn.Areas.Admin.Controllers
@@ -28,6 +29,7 @@ namespace BlogFsn.Areas.Admin.Controllers
             _msgBox = msgBox;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index(int PageId=1,int take=10,string filter="")
         {
             var Articles = await _articleApplication.GetAll(PageId, take, filter);
@@ -55,21 +57,24 @@ namespace BlogFsn.Areas.Admin.Controllers
         [Authorize(Roles = Roles.CanAddArticle)]
         public async Task<IActionResult> Create(CreateArticle article)
         {
-            if (string.IsNullOrWhiteSpace(article.Content) || string.IsNullOrWhiteSpace(article.Title)
-                                                           || article.ImagFile == null)
+            if (!ModelState.IsValid)
             {
-                return _msgBox.FaildMsg("تمامی اطلاعات وارد شود");
+                ViewBag.Categorsies = new SelectList(await _articleCategoryApplication.GetForArticle(), "Id", "Title");
+                return View(article);
             }
 
             var result = await _articleApplication.Create(article);
             if (result.isSucceeded)
             {
-                return _msgBox.SuccessMsg(result.Message,"GotoIndex()");
+                return Redirect("/Admin/Article/Index");
             }
             else
             {
-                return _msgBox.FaildMsg(result.Message);
+                ViewBag.Categorsies = new SelectList(await _articleCategoryApplication.GetForArticle(), "Id", "Title");
+                ViewBag.Error = result.Message;
+                return View(article);
             }
+
         }
 
         [HttpGet]
@@ -89,19 +94,22 @@ namespace BlogFsn.Areas.Admin.Controllers
         [Authorize(Roles = Roles.CanEditArticle)]
         public async Task<IActionResult> Edit(Edit edit)
         {
-            if (string.IsNullOrWhiteSpace(edit.Content) || string.IsNullOrWhiteSpace(edit.Title))
+            if (!ModelState.IsValid)
             {
-                return _msgBox.FaildMsg("تمامی اطلاعات وارد شود");
+                ViewBag.Categorsies = new SelectList(await _articleCategoryApplication.GetForArticle(), "Id", "Title");
+                return View(edit);
             }
 
             var result = await _articleApplication.Edit(edit);
             if (result.isSucceeded)
             {
-                return _msgBox.SuccessMsg(result.Message, "GotoIndex()");
+                return Redirect("/Admin/Article/Index");
             }
             else
             {
-                return _msgBox.FaildMsg(result.Message);
+                ViewBag.Categorsies = new SelectList(await _articleCategoryApplication.GetForArticle(), "Id", "Title");
+                ViewBag.Error = result.Message;
+                return View(edit);
             }
 
         }
