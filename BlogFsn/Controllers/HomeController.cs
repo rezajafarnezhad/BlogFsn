@@ -36,15 +36,32 @@ namespace BlogFsn.Controllers
 
         public async Task<IActionResult> Index(int pageId=1 , int take=9 , string filter="")
         {
-            var _article = await _articleApplication.GetAll(pageId, take, filter);
+            var _article = await _articleApplication.GetAllInIndexPage(pageId, take, filter);
             return View(_article);
         }
         [HttpPost]
         public async Task<IActionResult> Search(int pageId, int take, string filter)
         {
 
-            var _article = await _articleApplication.GetAll(pageId, take=9, filter);
+            var _article = await _articleApplication.GetAllInIndexPage(pageId, take=9, filter);
             return View("_ArticleHomePage",_article);
+        }
+
+
+        [HttpGet("/{Title}/Archive")]
+        public async Task<IActionResult> ArchiveCategory(string Title, int pageId= 1, int take = 9)
+        {
+
+            var _ArchiveCategory = await _articleApplication.GetArticleByCategoryTitle(pageId,take,Title);
+            return View(_ArchiveCategory);
+        }
+
+        [HttpPost()]
+        public async Task<IActionResult> SearchArchiveCategory(string Title, int pageId, int take)
+        {
+
+            var _ArchiveCategory = await _articleApplication.GetArticleByCategoryTitle(pageId, take=9, Title);
+            return View("_ArticleArchive",_ArchiveCategory);
         }
 
 
@@ -59,7 +76,6 @@ namespace BlogFsn.Controllers
         {
             return View();
         }
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -102,7 +102,12 @@ namespace BlogFsn.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(Guid Id)
         {
-            
+            if (!User.IsInRole(Roles.CanRemoveCategory))
+            {
+                return _msgBox.FaildMsg("شما دسترسی حذف ندارید");
+
+            }
+
             var result = await _articleCategoryApplication.Delete(Id);
             if (result.isSucceeded)
             {

@@ -1,0 +1,32 @@
+﻿
+
+@model IEnumerable<Fsn.Application.Contracts.Article.ArticleCategory>
+
+<div class="main-nav text-center d-none d-lg-block">
+    <nav>
+        <ul id="navigation" class="main-menu text-right " dir="rtl">
+            <li>
+                <a href="/" class="font-weight-bold">خانه</a>
+            </li>
+            <li class="menu-item-has-children" dir="rtl">
+                <a  class="font-weight-bold">دسته بندی مقاله ها</a>
+                <ul class="sub-menu">
+                    @foreach (var item in Model)
+                    {
+                        <li><a href="/@item.Title/Archive" class="text-right">@item.Title</a></li>
+                    }
+                </ul>
+            </li>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <a href="#" onclick="Register()" class="font-weight-bold">ثبت نام</a>
+                </li>
+                <li>
+                    <a href="#" onclick="Login()" class="font-weight-bold">ورود</a>
+                </li>
+            }
+
+        </ul>
+    </nav>
+</div>

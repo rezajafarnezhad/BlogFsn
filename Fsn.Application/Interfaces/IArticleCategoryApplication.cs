@@ -15,5 +15,7 @@ namespace Fsn.Application.Interfaces
         Task<OperationResult> Delete(Guid Id);
         Task<OperationResult> ChangeStatuse(Guid Id);
         Task<List<ArticleCategory>> GetForArticle();
+        Task<List<ArticleCategory>> GetCategoryForMenu();
+        Task<List<ArticleCategory>> GetForSearchInArticleList();
     }
 }

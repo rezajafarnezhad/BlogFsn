@@ -1,0 +1,49 @@
+﻿
+@model Fsn.Application.Contracts.Article.ListArticle
+
+@{
+    ViewData["Title"] = "مقالات مربوطه";
+    Layout = "_Layout";
+}
+
+<main class="position-relative">
+    <!--archive header-->
+    <div class="archive-header text-center">
+        <div class="container">
+            <div class="breadcrumb" dir="rtl">
+                <a href="/" rel="nofollow">خانه</a>
+                <span></span> تمامی مقالات (@Model.CategorySearch)
+            </div>
+            <div class="bt-1 border-color-1 mt-30 mb-50"></div>
+        </div>
+    </div>
+    <!--main content-->
+    <form></form>
+    <div class="main_content sidebar_right pb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <form id="Archiveform" action="/Home/SearchArchiveCategory" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#Content">
+                        <div id="Content">
+                            <partial name="_ArticleArchive" model="@Model" />
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+@section JS
+{
+    <script>
+        function sendPage(pagenum) {
+            $("#pageid").val(pagenum);
+            $("#Archiveform").submit();
+            window.scrollTo({ top: 30, behavior: 'smooth' });
+        }
+    </script>
+}

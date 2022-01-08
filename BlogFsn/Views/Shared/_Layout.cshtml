@@ -89,33 +89,8 @@
                     <div class="row">
                         <div class="col-12">
                             <!-- Main-menu -->
-                            <div class="main-nav text-center d-none d-lg-block">
-                                <nav>
-                                    <ul id="navigation" class="main-menu text-right " dir="rtl">
-                                        <li>
-                                            <a href="index.html" class="font-weight-bold">خانه</a>
-                                        </li>
-                                        <li class="menu-item-has-children" dir="rtl">
-                                            <a href="index.html" class="font-weight-bold">مقاله ها</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="blogDetail.html" class="text-right">بهترین نسخه اندروید کدام است ؟</a></li>
-                                                <li><a href="blogDetail.html" class="text-right">چه لپ تاپی خوب است ؟</a></li>
-                                                <li><a href="blogDetail.html" class="text-right">نحوه محاسبه قیمت سکه</a></li>
-                                            </ul>
-                                        </li>
-                                        @if (!User.Identity.IsAuthenticated)
-                                        {
-                                            <li>
-                                                <a href="#" onclick="Register()" class="font-weight-bold">ثبت نام</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" onclick="Login()" class="font-weight-bold">ورود</a>
-                                            </li>
-                                        }
-
-                                    </ul>
-                                </nav>
-                            </div>
+                            
+                            @await Component.InvokeAsync("Menu")
                         </div>
                     </div>
                 </div>

@@ -25,6 +25,7 @@
     <thead>
         <tr role="row">
             <th>عنوان</th>
+            <th>تعداد مقالات</th>
             <th>وضعیت</th>
             <th>عملیات</th>
         </tr>
@@ -34,6 +35,7 @@
         {
             <tr role="row" class="odd">
                 <td>@item.Title</td>
+                <td class="text-center">@item.ArticleCount</td>
                 <td class="text-center">
                     @if (item.IsActive)
                     {<i class="text-success fa fa-toggle-on"></i>}

@@ -30,16 +30,18 @@ namespace BlogFsn.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int PageId=1,int take=10,string filter="")
+        public async Task<IActionResult> Index(int PageId=1,int take=10,string filter="" ,string CategorySearch="")
         {
-            var Articles = await _articleApplication.GetAll(PageId, take, filter);
+            var Articles = await _articleApplication.GetAll(PageId, take, filter, CategorySearch);
+            ViewBag.Category = new SelectList(await _articleCategoryApplication.GetForSearchInArticleList(), "Title", "Title");
             return View(Articles);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Search(int PageId, int take, string filter)
+        public async Task<IActionResult> Search(int PageId, int take, string filter,string CategorySearch)
         {
-            var Articles = await _articleApplication.GetAll(PageId, take, filter);
+            var Articles = await _articleApplication.GetAll(PageId, take, filter, CategorySearch);
+            ViewBag.Category = new SelectList(await _articleCategoryApplication.GetForSearchInArticleList(), "Title", "Title");
             return PartialView("_Article",Articles);
         }
 

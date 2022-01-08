@@ -24,6 +24,7 @@ namespace Fsn.Application.Contracts.Article
         public Guid Id { get; set; }
         public string Title { get; set; }
         public bool IsActive { get; set; }
+        public int ArticleCount  { get; set; }
 
     }
 

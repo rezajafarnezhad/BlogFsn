@@ -22,7 +22,7 @@ namespace Fsn.Application
         }
 
 
-        public async Task<ListArticle> GetAll(int pageid, int take, string filter)
+        public async Task<ListArticle> GetAll(int pageid, int take, string filter,string CategorySearch)
         {
 
             var Result = _articleRepo.Get.Select(c => new ArticleS()
@@ -40,12 +40,20 @@ namespace Fsn.Application
             if (!string.IsNullOrWhiteSpace(filter))
                 Result = Result.Where(c => c.Title.Contains(filter));
 
+            if (CategorySearch is "All")
+                CategorySearch = null;
+
+            if (!string.IsNullOrWhiteSpace(CategorySearch))
+            {
+                Result = Result.Where(c => c.ArticleCategoryName == CategorySearch);
+            }
 
             var skip = (pageid - 1) * take;
 
             var model = new ListArticle()
             {
                 Fillter = filter,
+                CategorySearch = CategorySearch,
                 ArticleS = await Result.OrderByDescending(c => c.Title).Skip(skip).Take(take).ToListAsync(),
             };
 
@@ -53,7 +61,38 @@ namespace Fsn.Application
             return model;
 
         }
+        
+        public async Task<ListArticle> GetAllInIndexPage(int pageid, int take, string filter)
+        {
 
+            var Result = _articleRepo.Get.Where(c=>c.IsActive).Select(c => new ArticleS()
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Image = c.Image,
+                Content = c.Content,
+                IsActive = c.IsActive,
+                ArticleCategoryId = c.ArticleCategoryId,
+                ArticleCategoryName = c.ArticleCategory.Title
+
+            });
+
+            if (!string.IsNullOrWhiteSpace(filter))
+                Result = Result.Where(c => c.Title.Contains(filter));
+
+            var skip = (pageid - 1) * take;
+
+            var model = new ListArticle()
+            {
+                Fillter = filter,
+                CategorySearch = null,
+                ArticleS = await Result.OrderByDescending(c => c.Title).Skip(skip).Take(take).ToListAsync(),
+            };
+
+            model.GenaratPaging(Result, pageid, take);
+            return model;
+
+        }
 
         public async Task<OperationResult> Create(CreateArticle createArticle)
         {
@@ -182,5 +221,38 @@ namespace Fsn.Application
                 return operationResult.Failed();
             }
         }
+
+        public async Task<ListArticle> GetArticleByCategoryTitle(int pageid, int take, string Title)
+        {
+            try
+            {
+                var Result = _articleRepo.Get.Where(c => c.ArticleCategory.Title == Title && c.IsActive).Select(c => new ArticleS()
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    Content = c.Content,
+                    Image = c.Image,
+                    ArticleCategoryId = c.ArticleCategoryId,
+                    ArticleCategoryName = c.Title,
+                });
+
+
+                var skip = (pageid - 1) * take;
+
+                var model = new ListArticle()
+                {
+                    Fillter = null,
+                    CategorySearch = Title,
+                    ArticleS = await Result.OrderByDescending(c => c.Title).Skip(skip).Take(take).ToListAsync(),
+                };
+                model.GenaratPaging(Result, pageid, take);
+                return model;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
     }
 }

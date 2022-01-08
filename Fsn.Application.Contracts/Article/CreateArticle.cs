@@ -66,5 +66,6 @@ namespace Fsn.Application.Contracts.Article
     {
         public List<ArticleS> ArticleS { get; set; }
         public string Fillter { get; set; }
+        public string CategorySearch { get; set; }
     }
 }

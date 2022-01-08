@@ -56,7 +56,8 @@ namespace Fsn.Application
             {
                 Id = c.Id,
                 Title = c.Title,
-                IsActive = c.IsActive
+                IsActive = c.IsActive,
+                ArticleCount = c.Articles.Count
             });
 
             var skip = (pageid - 1) * take;
@@ -107,14 +108,20 @@ namespace Fsn.Application
         {
             OperationResult operationResult = new OperationResult();
 
-            var Category = await _articleCategoryRepo.GetById(Id);
+            var Category = await _articleCategoryRepo.Get
+                .Include(c=>c.Articles).Where(c=>c.Id == Id).SingleOrDefaultAsync();
+           
             if (Category is null)
                 return operationResult.Failed();
+
+            if (Category.Articles.Count > 0)
+                return operationResult.Failed("مقالاتی برای این دسته وجود دارد اول مقالات را پاک کنید");
+
+
             await _articleCategoryRepo.DeleteAsync(Category);
             return operationResult.Succeeded();
 
         }
-
         public async Task<OperationResult> ChangeStatuse(Guid Id)
         {
             OperationResult operationResult = new OperationResult();
@@ -137,6 +144,46 @@ namespace Fsn.Application
                 Title = c.Title
             }).ToListAsync();
         }
+        public async Task<List<ArticleCategory>> GetCategoryForMenu()
+        {
+            try
+            {
+                var qdata = await _articleCategoryRepo.Get.Where(c=>c.IsActive).Select(c => new ArticleCategory()
+                {
+                    Id = c.Id,
+                    IsActive = c.IsActive,
+                    Title = c.Title
 
+                }).ToListAsync();
+
+                return qdata;
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+
+        public async Task<List<ArticleCategory>> GetForSearchInArticleList()
+        {
+            try
+            {
+                var qdata = await _articleCategoryRepo.Get.Where(c => c.IsActive).Select(c => new ArticleCategory()
+                {
+                    Id = c.Id,
+                    IsActive = c.IsActive,
+                    Title = c.Title
+
+                }).ToListAsync();
+
+                return qdata;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

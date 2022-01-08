@@ -6,10 +6,18 @@
 <div class="row">
     <input type="hidden" id="pageid" name="PageId" value="@Model.PageId" />
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <input type="text" asp-for="@Model.Fillter" name="filter" class="form-control" placeholder="جستجو عنوان..." />
     </div>
+   
     <div class="col-md-4">
+        <select name="CategorySearch" asp-for="CategorySearch" asp-items="@ViewBag.Category"  class="form-control">
+            <option value="@Model.CategorySearch">دسته بندی</option>
+            <option value="All">همه</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
         <select name="take" class="form-control">
             <option value="@Model.Take">تعداد نمایش</option>
             <option value="2">2</option>
