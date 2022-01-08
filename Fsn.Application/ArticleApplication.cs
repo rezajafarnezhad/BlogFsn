@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Fsn.Application.Contracts.Article;
 using Fsn.Application.Interfaces;
 using Fsn.Domain.Blog;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Fsn.Application
 {
@@ -254,5 +256,47 @@ namespace Fsn.Application
             }
         }
 
+        public async Task<List<LastArticle>> GetForLastArticle()
+        {
+            try
+            {
+                var _LastArticle = await _articleRepo.Get.Where(c => c.IsActive).OrderByDescending(c=>c.CreateDate).Take(4).Select(c => new LastArticle()
+                {
+                    Id = c.Id.ToString(),
+                    Title = c.Title,
+                    Content = c.Content.Substring(0, Math.Min(c.Content.Length, 130)) + "....",
+                    CommentCount = 12,
+                    Image = c.Image
+
+                }).ToListAsync();
+
+                return _LastArticle;
+            }
+            catch (Exception )
+            {
+                return null;
+            }
+        }
+
+        public async Task<SingleArticle> GetForSinglePage(string Id)
+        {
+            try
+            {
+                var qdata = await _articleRepo.Get.Where(c => c.Id == Guid.Parse(Id)).Select(c => new SingleArticle()
+                {
+                    Id = c.Id.ToString(),
+                    Content = c.Content,
+                    Image = c.Image,
+                    CommentCount = 15,
+                    Title = c.Title
+                }).SingleOrDefaultAsync();
+
+                return qdata;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

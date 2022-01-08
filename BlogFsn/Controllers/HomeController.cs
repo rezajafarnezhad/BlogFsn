@@ -65,6 +65,17 @@ namespace BlogFsn.Controllers
         }
 
 
+        [HttpGet("/{Title}/Page/{Id}")]
+        public async Task<IActionResult> Article(string Id)
+        {
+            var _Article = await _articleApplication.GetForSinglePage(Id);
+            if (_Article is null)
+                return NotFound();
+
+            return View(_Article);
+        }
+
+
         [HttpGet("/AddData")]
         public IActionResult AddData()
         {

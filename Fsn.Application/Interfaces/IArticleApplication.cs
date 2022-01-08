@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Framework.Application;
 using Fsn.Application.Contracts.Article;
@@ -15,5 +16,7 @@ namespace Fsn.Application.Interfaces
         Task<OperationResult> ChangeStatus(Guid Id);
         Task<OperationResult> Delete(Guid Id);
         Task<ListArticle> GetArticleByCategoryTitle(int pageid, int take, string Title);
+        Task<List<LastArticle>> GetForLastArticle();
+        Task<SingleArticle> GetForSinglePage(string Id);
     }
 }

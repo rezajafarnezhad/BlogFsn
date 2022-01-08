@@ -20,17 +20,21 @@
     </div>
     <!--main content-->
     <form></form>
-    <div class="main_content sidebar_right pb-50">
+    <div class="main_content sidebar_right pb-50" dir="rtl">
         <div class="container">
-            <div class="row">
+            <div class="row text-center">
                 <div class="col-md-12">
 
                     <form id="Articleform" action="/Home/Search/" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#Content">
                         <div id="Content">
                             <partial name="_ArticleHomePage" model="@Model" />
                         </div>
+                        <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                     </form>
 
+                </div>
+                <div class="col-lg-10 col-md-12 col-sm-12 m-auto " dir="rtl">
+                    @await Component.InvokeAsync("LastArticle")
                 </div>
 
             </div>

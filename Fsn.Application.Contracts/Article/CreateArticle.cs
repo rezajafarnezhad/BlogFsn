@@ -39,7 +39,7 @@ namespace Fsn.Application.Contracts.Article
         [DisplayName("عنوان")]
 
         public string Title { get; set; }
-        
+
         public IFormFile ImagFile { get; set; }
         [Required]
         [DisplayName("محتوا")]
@@ -67,5 +67,19 @@ namespace Fsn.Application.Contracts.Article
         public List<ArticleS> ArticleS { get; set; }
         public string Fillter { get; set; }
         public string CategorySearch { get; set; }
+    }
+
+    public class LastArticle
+    {
+        public string Id { get; set; }
+        public string Title { get; set; }
+        public string Image { get; set; }
+        public int  CommentCount { get; set; }
+        public string Content { get; set; }
+    }
+
+    public class SingleArticle : LastArticle
+    {
+
     }
 }
