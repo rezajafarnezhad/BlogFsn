@@ -110,7 +110,7 @@ namespace Fsn.Application
         {
             try
             {
-                var _comment = await _commentRepo.Get.Where(c => c.ArticleId == Guid.Parse(Id)).Select(c => new CommnetModel()
+                var _comment = await _commentRepo.Get.Where(c => c.ArticleId == Guid.Parse(Id) && c.Status ==Convert.ToInt32(StatusComment.Confirmed)).Select(c => new CommnetModel()
                     {
                         Message = c.Message,
                         ArticleTitle = c.Article.Title,
