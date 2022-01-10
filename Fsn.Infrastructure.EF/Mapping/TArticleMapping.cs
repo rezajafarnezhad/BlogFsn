@@ -18,6 +18,12 @@ namespace Fsn.Infrastructure.EF.Mapping
                 .WithMany(c => c.Articles)
                 .HasForeignKey(c => c.ArticleCategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.HasMany(c => c.Comments)
+                .WithOne(c => c.Article)
+                .HasForeignKey(c => c.ArticleId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

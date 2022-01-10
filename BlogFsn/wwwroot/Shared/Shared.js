@@ -114,10 +114,19 @@ function StatusData(_Url, _Data = {}) {
     });
 }
 
-function RefreshGrid(_GridId) {
-    $('#' + _GridId).data("kendoGrid").dataSource.read();
-    $('#' + _GridId).data("kendoGrid").refresh();
+function ConfirmData(_Url, _Data = {}) {
+    confirm('آیا از تایید این کامنت مطمئن هستید؟ ', 'پیام', function () {
+        SendData(_Url, _Data);
+    });
 }
+
+function NotConfirmData(_Url, _Data = {}) {
+    confirm('آیا از عدم تایید این کامنت مطمئن هستید؟ ', 'پیام', function () {
+        SendData(_Url, _Data);
+    });
+}
+
+
 
 function ChangeUrl(_NewUrl) {
     history.pushState({}, null, _NewUrl);

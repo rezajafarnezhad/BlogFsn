@@ -21,6 +21,13 @@ namespace Fsn.Infrastructure.EF.Mapping
                 .WithMany(c => c.TUsers)
                 .HasForeignKey(c => c.AccessLevelId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.HasMany(c => c.Comments)
+                .WithOne(c => c.User)
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

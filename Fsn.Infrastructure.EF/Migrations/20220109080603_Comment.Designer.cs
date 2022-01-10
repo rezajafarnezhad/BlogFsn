@@ -4,14 +4,16 @@ using Fsn.Infrastructure.EF.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fsn.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20220109080603_Comment")]
+    partial class Comment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,9 +249,6 @@ namespace Fsn.Infrastructure.EF.Migrations
                     b.Property<Guid>("ArticleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreateionDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasMaxLength(2000)
@@ -258,14 +257,9 @@ namespace Fsn.Infrastructure.EF.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ArticleId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("TComment");
                 });
@@ -430,15 +424,7 @@ namespace Fsn.Infrastructure.EF.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Fsn.Domain.Account.UserAgg.TUser", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Article");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -504,11 +490,6 @@ namespace Fsn.Infrastructure.EF.Migrations
                     b.Navigation("TAccessLevelRoles");
 
                     b.Navigation("TRole_Childs");
-                });
-
-            modelBuilder.Entity("Fsn.Domain.Account.UserAgg.TUser", b =>
-                {
-                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("Fsn.Domain.Blog.TArticle", b =>

@@ -49,6 +49,9 @@ namespace Fsn.Infrastracture.Core
 
             service.AddScoped<IArticleCategoryRepo, ArticleCategoryRepo>();
             service.AddScoped<IArticleCategoryApplication, ArticleCategoryApplication>();
+            
+            service.AddScoped<ICommentRepo, CommentRepo>();
+            service.AddScoped<ICommentApplication,CommentApplication>();
         }
     }
 }

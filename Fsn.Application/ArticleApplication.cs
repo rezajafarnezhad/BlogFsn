@@ -265,7 +265,7 @@ namespace Fsn.Application
                     Id = c.Id.ToString(),
                     Title = c.Title,
                     Content = c.Content.Substring(0, Math.Min(c.Content.Length, 130)) + "....",
-                    CommentCount = 12,
+                    CommentCount = c.Comments.Count,
                     Image = c.Image
 
                 }).ToListAsync();
@@ -287,8 +287,8 @@ namespace Fsn.Application
                     Id = c.Id.ToString(),
                     Content = c.Content,
                     Image = c.Image,
-                    CommentCount = 15,
-                    Title = c.Title
+                    CommentCount = c.Comments.Count,
+                    Title = c.Title,
                 }).SingleOrDefaultAsync();
 
                 return qdata;

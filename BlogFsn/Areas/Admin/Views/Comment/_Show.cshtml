@@ -1,0 +1,93 @@
+﻿
+@model Fsn.Application.Contracts.Commnet.CommnetModel
+
+@{
+    Layout = null;
+}
+
+
+<div class="modal fade bd-example-modal-lg" id="ShowComment" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <form id="commfrm" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">مشاهده کامنت</h5>
+                    <button type="button" onclick="Close()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group text-right">
+                                <label class="control-label ">نام کامنت گذار</label>
+                                <input type="text" asp-for="@Model.FullName" readonly="readonly" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group text-right">
+                                <label class="control-label ">ایمیل کامنت گذار</label>
+                                <input type="text" asp-for="@Model.Email" readonly="readonly" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group text-right">
+                                <label class="control-label ">مقاله</label>
+                                <input type="text" asp-for="@Model.ArticleTitle" readonly="readonly" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group text-right">
+                                <label class="control-label ">در تاریخ</label>
+                                <input type="text" asp-for="@Model.Date" readonly="readonly" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group text-right">
+                                <label class="control-label ">کامنت</label>
+                                @if (Model.Status == 0)
+                                {
+                                    <p class="text-primary"><i class="fa fa-newspaper"></i> تازه</p>
+
+                                }
+                                else if (Model.Status == 1)
+                                {
+                                    <p class="text-primary"><i class="fa fa-check"></i> تایید شده</p>
+
+                                }
+                                else
+                                {
+                                    <p class="text-primary"><i class="fa fa-times-circle"></i> تایید نشده</p>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">کامنت</label>
+                                <textarea rows="6" type="text" readonly="readonly" asp-for="@Model.Message" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function Close() {
+        $(document).ready(function () {
+            $('#ShowComment').remove();
+            $('.modal-backdrop').remove();
+        });
+    }
+
+</script>
+

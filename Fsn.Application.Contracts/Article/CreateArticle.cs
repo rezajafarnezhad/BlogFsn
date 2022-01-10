@@ -7,6 +7,7 @@ using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using Framework.Application;
+using Fsn.Application.Contracts.Commnet;
 using Microsoft.AspNetCore.Http;
 
 namespace Fsn.Application.Contracts.Article
@@ -78,8 +79,10 @@ namespace Fsn.Application.Contracts.Article
         public string Content { get; set; }
     }
 
+    
+
     public class SingleArticle : LastArticle
     {
-
+        public CreateCommnet CreateCommnet { get; set; }
     }
 }

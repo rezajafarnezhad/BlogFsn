@@ -1,0 +1,47 @@
+﻿
+@model IEnumerable<Fsn.Application.Contracts.Commnet.CommnetModel>
+
+
+<div class="comments-area">
+    <h3 class="mb-30">لیست نظرات کاربران</h3>
+    
+    
+    @if (Model.Count() == 0)
+    {
+        <div class="comment-list">
+            <div class="col-md-12">
+                <div class="alert alert-warning">
+                    <p>
+                        کامنتی هنوز درج نشده شما اولین نفر باشین🥇  
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
+    @foreach (var item in Model)
+    {
+
+        <div class="comment-list">
+            <div class="single-comment justify-content-between d-flex">
+                <div class="user justify-content-between d-flex">
+                    <div class="thumb">
+                        <img src="/Site/assets/imgs/avatar5.png" alt="">
+                    </div>
+                    <div class="desc">
+                        <div class="d-flex justify-content-between pr-4">
+                            <div class="d-flex align-items-center">
+                                <h5>
+                                    <a href="#">@item.FullName | (@item.Date)</a>
+                                </h5>
+                            </div>
+                        </div>
+                        <p class="comment pr-4 mt-3 text-justify">
+                            @item.Message
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -47,112 +47,47 @@
                     <div class="entry-main-content">
                         <hr class="wp-block-separator is-style-wide">
                         <p class="text-justify">
-                           @Html.Raw(Model.Content)
+                            @Html.Raw(Model.Content)
                         </p>
                     </div>
 
                     <!--related posts-->
-                    <!--Comments-->
-                    <div class="comments-area">
-                        <h3 class="mb-30">لیست نظرات کاربران</h3>
-                        <div class="comment-list">
-                            <div class="single-comment justify-content-between d-flex">
-                                <div class="user justify-content-between d-flex">
-                                    <div class="thumb">
-                                        <img src="assets/imgs/author.png" alt="">
-                                    </div>
-                                    <div class="desc">
-                                        <p class="comment pr-4 text-right">
-                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-                                        </p>
-                                        <div class="d-flex justify-content-between pr-4">
-                                            <div class="d-flex align-items-center">
-                                                <h5>
-                                                    <a href="#">محمد رضایی</a>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment-list">
-                            <div class="single-comment justify-content-between d-flex">
-                                <div class="user justify-content-between d-flex">
-                                    <div class="thumb">
-                                        <img src="assets/imgs/author.png" alt="">
-                                    </div>
-                                    <div class="desc">
-                                        <p class="comment pr-4 text-right">
-                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-                                        </p>
-                                        <div class="d-flex justify-content-between pr-4">
-                                            <div class="d-flex align-items-center">
-                                                <h5>
-                                                    <a href="#">محمد رضایی</a>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment-list">
-                            <div class="single-comment justify-content-between d-flex">
-                                <div class="user justify-content-between d-flex">
-                                    <div class="thumb">
-                                        <img src="assets/imgs/author.png" alt="">
-                                    </div>
-                                    <div class="desc">
-                                        <p class="comment pr-4 text-right">
-                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-                                        </p>
-                                        <div class="d-flex justify-content-between pr-4">
-                                            <div class="d-flex align-items-center">
-                                                <h5>
-                                                    <a href="#">محمد رضایی</a>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!--comment form-->
-                    <div class="comment-form">
-                        <h3 class="mb-30">ارسال نظر</h3>
-                        <form class="form-contact comment_form" action="#" id="commentForm">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="متن"></textarea>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="comment-form">
+                            <h3 class="mb-30">ارسال نظر</h3>
+                            <form id="commentForm" method="post">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <textarea asp-for="CreateCommnet.Message" class="form-control w-100" cols="30" rows="10" placeholder="متن"></textarea>
+                                            <input type="hidden" asp-for="CreateCommnet.UserId" value="@ViewBag.Userid" />
+                                            <input type="hidden" asp-for="CreateCommnet.ArticleId" value="@Model.Id" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <input class="form-control" name="name" id="name" type="text" placeholder="نام شما">
-                                    </div>
+                                <div class="form-group">
+                                    <button type="button" onclick="SendForm('/Home/AddComment','commentForm')" class="button button-contactForm">ثبت</button>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <input class="form-control" name="email" id="email" type="email" placeholder="ایمیل">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <input class="form-control" name="website" id="website" type="text" placeholder="آدرس وب سایت">
-                                    </div>
-                                </div>
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="comment-form">
+                            <div class="alert alert-warning">
+                                <p>
+                                    جهت درج کامنت ابتدا در سایت <strong>لاگین</strong> کنید
+                                </p>
                             </div>
-                            <div class="form-group">
-                                <button type="submit" class="button button-contactForm">ثبت</button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    }
+
+
+                    <!--Comments-->
+
+                    @await Component.InvokeAsync("ShowComments",Model.Id.ToString())
                     <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                     @await Component.InvokeAsync("LastArticle")
                 </div>
@@ -160,3 +95,6 @@
         </div>
     </div>
 </main>
+
+<link href="~/lib/sweetalert/sweetalert.css" rel="stylesheet" />
+<script src="~/lib/sweetalert/sweetalert.js"></script>
